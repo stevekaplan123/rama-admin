@@ -13,3 +13,7 @@ button.textborder{
 button.background{
 	background-color: #222222;
 }
+#footer{
+	position:fixed;
+	bottom:0;
+}
