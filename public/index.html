@@ -47,7 +47,7 @@ body {
 
 <body background="VanGogh.png">
 
-	<div id="menu">
+	<div id="menu-view" class-"view">
 		<h3>Menu</h3>
 		<ul>
 			<li class="active"><a href="#welcome" class="contentLink"> Home </a></li>
@@ -59,7 +59,8 @@ body {
 	
 	<div data-role="page" class="pages" id="home" data-theme="b">
 		<div data-role="header" data-theme="a">
-			<a href="#"class="showMenu">Menu</a>
+			<button onclick="roseApp.showView('menu')"> Menu </button>
+			<button onclick="roseApp.showView('welcome')">Home</button>
 			<div data-role="header">
 				<h1 class="textborder"><span id="title">Title Goes Here</span></h1>
 			</div>
@@ -73,7 +74,7 @@ body {
 		<!-- Triggered when about welcome is autoloaded -->
 		<div id="welcome-view" class="view">   	
 			<h1 align="center" class="textborder">Welcome to the Rose Art Museum. I'm RAMA, your tour guide.</h1>
-			<button onclick="roseApp.showView('roseList')" class="backround">View your rose List now </button>
+			<button onclick="roseApp.showView('roseList')">View your rose List now </button>
 			<button onclick="roseApp.showView('about')">View About Page </button>
 		</div>
 
