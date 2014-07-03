@@ -30,18 +30,18 @@ var roseView = (function($){
                     rows = rows + itemToRow(item);
                 }
 
-                var itemTableBody = $("#table").html(rows);
+                var itemTableBody = $("#itemTableBody").html(rows);
 
     }
 
     // convert an item into an HTML tr element
     function itemToRow(item){
         var row = 
-        "<tr><td>"+item.title+
+        "<tr><td>"+item.title+ " " +
         "</td><td>"+ 
-            item.artist+
+            item.artist+ " " +
         "</td><td>"+
-            item.period+
+            item.period+ " " +
         "</td></tr>";
         return row;
     } 
