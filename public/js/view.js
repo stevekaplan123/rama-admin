@@ -30,7 +30,7 @@ var roseView = (function($){
                     rows = rows + itemToRow(item);
                 }
 
-                var itemTableBody = $("#itemTableBody").html(rows);
+                var itemTableBody = $("#table").html(rows);
 
     }
 

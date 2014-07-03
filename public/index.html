@@ -50,10 +50,10 @@ body {
 	<div id="menu">
 		<h3>Menu</h3>
 		<ul>
-			<li class="active"><a href="#home" class="contentLink"> Home </a></li>
-			<li><a href="#home" class="contentLink"> Gallery  </a></li>
-			<li><a href="#home" class="contentLink"> Request Assistance </a></li>
-			<li><a href="#home" class="contentLink"> Support the Rose </a></li>
+			<li class="active"><a href="#welcome" class="contentLink"> Home </a></li>
+			<li><a href="#welcome" class="contentLink"> Gallery  </a></li>
+			<li><a href="#welcome" class="contentLink"> Request Assistance </a></li>
+			<li><a href="#welcome" class="contentLink"> Support the Rose </a></li>
 		</ul>
 	</div>
 	
@@ -61,7 +61,7 @@ body {
 		<div data-role="header" data-theme="a">
 			<a href="#"class="showMenu">Menu</a>
 			<div data-role="header">
-				<h1><span id="title">Title Goes Here</span></h1>
+				<h1 class="textborder"><span id="title">Title Goes Here</span></h1>
 			</div>
 		</div><!-- /header -->
 
@@ -72,8 +72,8 @@ body {
 
 		<!-- Triggered when about welcome is autoloaded -->
 		<div id="welcome-view" class="view">   	
-			<p align="center">Welcome to the Rose Art Museum. I'm RAMA, your tour guide.</p>
-			<button onclick="roseApp.showView('roseList')">View your rose List now </button>
+			<h1 align="center" class="textborder">Welcome to the Rose Art Museum. I'm RAMA, your tour guide.</h1>
+			<button onclick="roseApp.showView('roseList')" class="backround">View your rose List now </button>
 			<button onclick="roseApp.showView('about')">View About Page </button>
 		</div>
 
@@ -86,7 +86,10 @@ body {
 
 		<!-- Triggered when about page is clicked -->
 		<div id="roseList-view" class="view">	
-			<div align="center" id="title" class="header">
+			<div align="center" id="table" class="header">
+				<tbody>
+				</tbody>
+
 			</div>
 		</div>
 		<!-- /content -->
