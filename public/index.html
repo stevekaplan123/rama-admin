@@ -15,11 +15,23 @@
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script>
-	<script src=frontendScripts.js></script>
-<!--	<style>
+<style>
 body {
-    background: url(VanGoghWashed.png);
+    background: url(VanGoghWashed.png) !important;
+    background-attachment:fixed;
+	background-size:cover;
+	background-repeat: no-repeat !important;
+	background-size:100% 100% !important;
+}
+
+.ui-page, .ui-content, .ui-btn {
+	background: transparent;
+}	</style>
+
+<!--	
+body {
     background-repeat:repeat-y;
+    background: url(VanGoghWashed.png);
     background-position:center center;
     background-attachment:scroll;
     background-size:100% 100%;
@@ -30,11 +42,11 @@ body {
 .ui-content{
     background: transparent;
 }
-	</style>
 -->
 </head>
 
 <body background="VanGogh.png">
+
 	<div id="menu">
 		<h3>Menu</h3>
 		<ul>
