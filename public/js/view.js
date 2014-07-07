@@ -43,6 +43,10 @@ var roseView = (function($){
             item.artist+ " " +
         "</td><td>"+
             item.period+ " " +
+        "</td></tr>"
+            item.created+ " " +
+        "</td></tr>"
+            item.genre+ " " +
         "</td></tr>";
         return row;
     } 

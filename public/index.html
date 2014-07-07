@@ -4,65 +4,80 @@
     <title>The Rose | Brandeis University</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/stylerama.css">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="css/jquery.sidr.dark.css" rel="stylesheet" />
+    <link href="css/jquery.sidr.light.css" rel="stylesheet" />
+	<link href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" rel="stylesheet"/>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/model.js"></script>
     <script src="js/view.js"></script>
-    <script src="js/controller.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/controller.js"></script>	
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<!--<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script> -->
-<style>
-body {
-    background: url(VanGoghWashed.png) !important;
-    background-attachment:fixed;
-	background-size:cover;
-	background-repeat: no-repeat !important;
-	background-size:100% 100% !important;
-}
-
-.ui-page, .ui-content, .ui-btn {
-	background: transparent;
-}	</style>
-
-<!--	
-body {
-    background-repeat:repeat-y;
-    background: url(VanGoghWashed.png);
-    background-position:center center;
-    background-attachment:scroll;
-    background-size:100% 100%;
-}
-.ui-page {
-    background: transparent;
-}
-.ui-content{
-    background: transparent;
-}
--->
+	<script type="text/javascript" charset="utf-8" src="cordova/cordova.js"></script>
+	<script>
+	$(document).ready(function() {
+	  $('#simple-menu').sidr();
+	
+	});
+	
+	</script>
+	<style>
+	
+	li{
+		font-size:20px;
+		display: hidden;
+	}
+	#footer {
+	    position:fixed;
+	    bottom:0;
+	}
+	.ui-page, .ui-content, .ui-btn {
+		background: transparent;
+	}
+	body {
+	    background: url(img/roseBlurred.jpg) !important;
+	    background-attachment:fixed;
+		background-size:cover;
+		background-repeat: no-repeat !important;
+		background-size:100% 100% !important;
+		font-family: 'Droid Serif', serif !important;	
+		}
+	</style>
 </head>
 
-<body background="VanGogh.png">
-
-	<div id="menu-view" class="view">
-		<h3>Menu</h3>
-		<ul>
-			<li class="active"><a href="#welcome" class="contentLink"> Home </a></li>
-			<li><a href="#welcome" class="contentLink"> Gallery  </a></li>
-			<li><a href="#welcome" class="contentLink"> Request Assistance </a></li>
-			<li><a href="#welcome" class="contentLink"> Support the Rose </a></li>
-		</ul>
-	</div>
-	
-	<div data-role="page" class="pages" id="home" data-theme="b">
-		<div data-role="header" data-theme="a">
-			<button onclick="roseApp.showView('menu')"> Menu </button>
-			<button onclick="roseApp.showView('welcome')">Home</button>
+<body> 
+	<div id="sidr" id="menu"  >
+	  <!-- Your content -->
+	  <ul>
+	    <li><a href="#home">Home</a></li>
+	    <li class="active"><a href="#gallery">Gallery</a></li>
+	    <li><a href="https://secure.www.alumniconnections.com/olc/pub/BND/onlinegiving/showGivingForm.jsp?form_id=142247">Support the Rose</a></li>
+	  </ul>
+	</div> 
+	<div id="roseList-view" class="view">
+	 <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Period</th>
+                    <th>Created</th>
+					<th>Genre</th>
+                </tr>
+            </thead>
+            <tbody id="itemTableBody">
+          
+            </tbody>
+        </table>
+    </div>
+	<div data-role="page" class="pages" id="home" data-theme="e">
+		<div data-role="header" data-theme="b">
+			<a id="simple-menu" href="#sidr">Menu</a>
 			<div data-role="header">
-				<h1 class="textborder"><span id="title">Title Goes Here</span></h1>
+				<h1><span id="title">Title Goes Here</span></h1>
 			</div>
 		</div><!-- /header -->
 
@@ -73,39 +88,28 @@ body {
 
 		<!-- Triggered when about welcome is autoloaded -->
 		<div id="welcome-view" class="view">   	
-			<h1 align="center" class="textborder">Welcome to the Rose Art Museum. I'm RAMA, your tour guide.</h1>
-			<button onclick="roseApp.showView('roseList')">View your rose List now </button>
+			<button onclick="roseApp.showView('roseList')">View Rose List </button>
 			<button onclick="roseApp.showView('about')">View About Page </button>
-		</div>
-
-		<!-- Triggered when about page is clicked -->
-		<div id="about-view" class="view">
-			<button onclick="roseApp.showView('roseList')">View your rose List now </button>
-			<button onclick="roseApp.showView('welcome')">Home</button>
-		</div>
-
-
-		<!-- Triggered when about page is clicked -->
-		<div id="roseList-view" class="view">	
-			<div align="center" id="table" class="header">
-				<table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Period</th>
-                </tr>
-            </thead>
-            <tbody id="itemTableBody">
-          
-            </tbody>
-        </table>
+			<div align="center">
+			<!--START JUICEBOX EMBED-->
+			<script src="jbcore/juicebox.js"></script>
+			<script>
+			new juicebox({
+			containerId: "juicebox-container",
+			galleryWidth: "50%",
+			galleryHeight: "50%",
+			backgroundColor: "transparent"
+			});
+			</script>
+			<div id="juicebox-container"></div>
+			<!--END JUICEBOX EMBED-->
 			</div>
+
 		</div>
-		<!-- /content -->
+
 
 		<!-- footer -->
-		<div data-role="footer" data-position="fixed" id="footer">
+		<div id="footer" data-role="footer" data-position="fixed">
 			<h4>&copy; 2014 Rose Art Museum | Brandeis University </h4>
 		</div>
 		<!-- /footer -->
@@ -137,48 +141,6 @@ $(document).ready(roseApp.start());
 		}
 
 </script>
-<script>$(function(){
-    var menuStatus;
-    
-    $("a.showMenu").click(function(){
-        if(menuStatus != true){                
-        $(".ui-page-active").animate({
-            marginLeft: "165px",
-          }, 300, function(){menuStatus = true});
-          return false;
-          } else {
-            $(".ui-page-active").animate({
-            marginLeft: "0px",
-          }, 300, function(){menuStatus = false});
-            return false;
-          }
-    });
- 
-    $('.pages').live("swipeleft", function(){
-        if (menuStatus){    
-        $(".ui-page-active").animate({
-            marginLeft: "0px",
-          }, 300, function(){menuStatus = false});
-          }
-    });
-    
-    $('.pages').live("swiperight", function(){
-        if (!menuStatus){    
-        $(".ui-page-active").animate({
-            marginLeft: "165px",
-          }, 300, function(){menuStatus = true});
-          }
-    });
-    
-    $("#menu li a").click(function(){
-        var p = $(this).parent();
-        if($(p).hasClass('active')){
-            $("#menu li").removeClass('active');
-        } else {
-            $("#menu li").removeClass('active');
-            $(p).addClass('active');
-        }
-    });
-        
-});</script>
+
+
 </html>
