@@ -14,7 +14,7 @@ var bodyParser = require('body-parser'); // this allows us to pass JSON values t
 var app = express();
 
 var monk = require('monk');
-var db = monk('129.64.230.215:27017/rose');
+var db = monk('129.64.206.34:27017/rose');
 
 
 // serve static content from the public folder 
@@ -28,7 +28,8 @@ app.use(bodyParser.json());
 // log the requests
 app.use(function(req, res, next) {
     console.log('%s %s %s', req.method, req.url, JSON.stringify(req.body));
-    //console.log("myData = "+JSON.stringify(myData));
+
+  //  console.log("myData = "+JSON.stringify(myData));
     next();
 });
 

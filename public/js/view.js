@@ -9,6 +9,7 @@ var roseView = (function($){
 
         updateTitle(myData.user);
         refreshTable(myData.items);
+        console.log(myData.items);
     }
     
     

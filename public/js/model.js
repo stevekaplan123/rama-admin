@@ -79,18 +79,6 @@ RoseList.prototype.deleteElement = function(id){
     }).done(function(items) {
         myList.loadModel();
     });
-}
 
-RoseList.prototype.totalPrice = function(){
-    var total=0;
-    var item;
-    var i;
-    for(i=0; i<this.items.length; i++){
-        item = this.items[i];
-        if (item.purchased){
-            total += item.price*item.quantity;
-        }
-    }
-    return total;
 }
     
