@@ -43,9 +43,9 @@ var roseView = (function($){
             item.artist+ " " +
         "</td><td>"+
             item.period+ " " +
-        "</td></tr>"
+        "</td><td>" +
             item.created+ " " +
-        "</td></tr>"
+        "</td><td>" +
             item.genre+ " " +
         "</td></tr>";
         return row;

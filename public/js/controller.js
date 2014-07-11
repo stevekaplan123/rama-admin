@@ -22,63 +22,12 @@ var roseApp = (function($) {
       //$("#" + selected + '-view').show();
     };
 
-
-    function handleDeleteItem(element) {
-        console.log("deleting item");
-        console.log(" with id " + element.getAttribute("sid"));
-        myList.deleteElement(element.getAttribute("sid"));
-
-    }
-
-    function addItem(element) {
-        var element = document.getElementById("newItemName");
-
-        console.log("new item " + element.value);
-        myList.addElement({
-            action: element.value,
-            price: 0,
-            quantity: 0
-        });
-        element.value="";
-    }
-    
-    function editPrice(element){
-        var itemId = element.getAttribute("sid");
-        var itemVal = element.value;
-        var item;
-        console.log("item "+itemId+" has value "+itemVal);
-        item = myList.getElement(itemId);
-        item.price = itemVal;
-        myList.updateElement(item.id,item);
-        refreshView();
-        
-    }
-    
-    function editQuantity(element){
-        var itemId = element.getAttribute("sid");
-        var itemVal = element.value;
-        var item;
-        console.log("item "+itemId+" has value "+itemVal);
-        item = myList.getElement(itemId);
-        item.quantity = itemVal;
-        myList.updateElement(item.id,item);
-        refreshView();
-        
-    }
-
-    function purchaseItem(element) {
-        var itemId = element.getAttribute("sid");
-        var item;
-        console.log("purchasing item "+itemId);
-        item = myList.getElement(itemId);
-        item.purchased= !item.purchased;
-        myList.updateElement(item.id,item);
-        refreshView();
-    }
-
-    function editItem(element) {
-        console.log("editing item "+element.getAttribute("sid"));
-    }
+    function playmusic(){
+      myList.loadModelAudio();
+      var firstFile = myList.audios[0];
+      var file = $("#audioPlayer").html(firstFile);
+      console.log(firstFile);
+    } 
 
     function refreshView(){
         roseView.refreshView(myList);
@@ -86,6 +35,7 @@ var roseApp = (function($) {
 
     function reloadModel(){
         myList.loadModel();
+        myList.loadModelAudio(); //new
         refreshView();
     }
     
@@ -100,6 +50,7 @@ var roseApp = (function($) {
 
     function start() {
         myList.loadModel();
+        myList.loadModelAudio(); //new
         roseView.refreshView(myList);
         showView("welcome");
         console.log("myList = " + JSON.stringify(myList));
@@ -110,14 +61,8 @@ var roseApp = (function($) {
     // here is were we decide what is visible to the outside!
     roseApp = {
         start: start,
-        addItem: addItem,
-        handleDeleteItem: handleDeleteItem,
         refreshView: refreshView,
-        purchaseItem: purchaseItem,
-        editItem: editItem,
         reloadModel: reloadModel,
-        editPrice: editPrice,
-        editQuantity: editQuantity,
         showView: showView
     }
 

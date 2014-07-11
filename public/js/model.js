@@ -10,6 +10,7 @@ function RoseList() {
     this.user = "Katherine";
     this.cutoff = 0;
     this.items = [];
+    this.audios = [];
 
 };
 
@@ -40,6 +41,21 @@ RoseList.prototype.loadModel = function() {
         items.map(function(x){x.id=x["_id"];});
         roseView.refreshView(myList);
         console.log(JSON.stringify(myList.items));
+
+    });
+};
+
+RoseList.prototype.loadModelAudio = function() {
+    var myList = this;
+    
+    // send request to the server for the items in the list
+    $.ajax({
+        type: "GET",
+        url: "/model/fs.files",
+    }).done(function(audios) {
+        myList.audios = audios;
+        audios.map(function(x){x.id=x["_id"];});
+        console.log(JSON.stringify(myList.audios));
 
     });
 };
