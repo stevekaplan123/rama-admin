@@ -14,7 +14,7 @@ var bodyParser = require('body-parser'); // this allows us to pass JSON values t
 var app = express();
 
 var monk = require('monk');
-var db = monk('129.64.230.99:27017/rose');
+var db = monk('localhost:27017/rose');
 
 
 // serve static content from the public folder 
