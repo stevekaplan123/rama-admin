@@ -1,8 +1,8 @@
 {
-  "name": "simpleRest",
+  "name": "Rama",
   "version": "0.1.1",
-  "description": "Simple Example of REST webserver managing an array of JSON literals",
-  "author": "Tim Hickey <tjhickey@brandeis.edu> (http://www.cs.brandeis.edu/~tim)",
+  "description": "Rama App Version 1",
+  "author": "Katherine Currier <kcurrier@brandeis.edu> ",
   "scripts": {
     "start": "node --harmony ./app.js"
   },
@@ -11,5 +11,8 @@
     "express": "^4.4.4",
     "mongodb": "^1.4.7",
     "monk": "^0.9.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
