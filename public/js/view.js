@@ -15,7 +15,7 @@ var roseView = (function($){
     
     // updates the title with the user's name
     function updateTitle(user){
-        var newTitle = user + "'s Gallery";
+        var newTitle = user + ' Gallery';
         $("#title").html(newTitle);
     }
     
