@@ -1,19 +1,20 @@
-p.textborder{
-	color: white;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+li{
+	font-size:20px;
+	display: hidden;
 }
-h1.textborder{
-	color: white;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+#footer {
+    position:fixed;
+    bottom:0;
 }
-button.textborder{
-	color: white;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+.ui-page, .ui-content, .ui-btn {
+	background: transparent !important;
 }
-button.background{
-	background-color: #222222;
+body {
+    background: url(../img/roseBlurred.jpg) !important;
+    background-attachment:fixed;
+	background-size:cover;
+	background-repeat: no-repeat !important;
+	background-size:100% 100% !important;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-#footer{
-	position:fixed;
-	bottom:0;
-}
+		

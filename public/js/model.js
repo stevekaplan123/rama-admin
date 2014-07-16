@@ -7,7 +7,7 @@
 **/
 
 function RoseList() {
-    this.user = "Katherine";
+    this.user = "Rose Art Museum";
     this.cutoff = 0;
     this.items = [];
     this.audios = [];
