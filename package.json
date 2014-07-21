@@ -10,6 +10,7 @@
     "body-parser": "^1.4.3",
     "express": "^4.4.4",
     "mongodb": "^1.4.7",
+    "mongoose": "^3.8.13",
     "monk": "^0.9.0"
   },
   "engines": {
