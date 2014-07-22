@@ -7,22 +7,13 @@ var roseView = (function($){
     
     function refreshView(myData){
 
-        updateTitle(myData.user);
-        refreshTable(myData.items);
+        //refreshTable(myData.items);
         console.log(myData.items);
     }
     
     
-    // updates the title with the user's name
-    function updateTitle(user){
-        var newTitle = user + ' Gallery';
-        $("#title").html(newTitle);
-    }
-    
-    
-    
     // redraw the table using the current model
-    function refreshTable(myItems){  
+    /*function refreshTable(myItems){  
                 var rows = "";
                 var len = myItems.length;
                 console.log("length = "+len);
@@ -33,7 +24,7 @@ var roseView = (function($){
 
                 var itemTableBody = $("#itemTableBody").html(rows);
 
-    }
+    } */
 
     // convert an item into an HTML tr element
     function itemToRow(item){
@@ -56,7 +47,7 @@ var roseView = (function($){
     
     roseView={
         refreshView: refreshView,
-        refreshView: refreshView,
+
         itemToRow: itemToRow
     };
     

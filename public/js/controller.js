@@ -28,17 +28,17 @@ var roseApp = (function($) {
       var file = $("#audioPlayer").html(firstFile);
       console.log(firstFile);
     } 
-
+    
     function refreshView(){
-        roseView.refreshView(myList);
+      roseView.refreshView(myList);
     }
 
     function reloadModel(){
-        myList.loadModel();
-        myList.loadModelAudio(); //new
-        refreshView();
+      myList.loadModel();
+      myList.loadModelAudio(); //new
+      refreshView();
     }
-    
+
     function initEventListeners(){
         $(window).on('hashchange', function(event){
           var view = (window.location.hash || '').replace(/^#/, '');
@@ -50,7 +50,6 @@ var roseApp = (function($) {
 
     function start() {
         myList.loadModel();
-        myList.loadModelAudio(); //new
         roseView.refreshView(myList);
         showView("welcome");
         console.log("myList = " + JSON.stringify(myList));
@@ -61,9 +60,9 @@ var roseApp = (function($) {
     // here is were we decide what is visible to the outside!
     roseApp = {
         start: start,
-        refreshView: refreshView,
+        showView: showView,
         reloadModel: reloadModel,
-        showView: showView
+        refreshView: refreshView
     }
 
     return (roseApp);
