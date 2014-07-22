@@ -1,8 +1,8 @@
-function TestList(){
+function RoseList(){
     this.audio = [];
 };
 
-TestList.prototype.getElement = function(id){
+RoseList.prototype.getElement = function(id){
     var audio;
     var i;
     for(i=0; i<this.audio.length; i++){
@@ -13,7 +13,7 @@ TestList.prototype.getElement = function(id){
     }
 };
 
-TestList.prototype.loadModel = function() {
+RoseList.prototype.loadModel = function() {
     var myList = this;
     
     // send request to the server for the items in the list
@@ -27,7 +27,7 @@ TestList.prototype.loadModel = function() {
     });
 };
 
-TestList.prototype.getID = function(title) {
+RoseList.prototype.getID = function(title) {
 	$.ajax({
 		type: "GET",
 		url: "audios",
@@ -43,7 +43,7 @@ TestList.prototype.getID = function(title) {
 }
 
 
-TestList.prototype.getUrl = function(id, to_load, ta){
+RoseList.prototype.getUrl = function(id, to_load, ta){
     var myList = this;
     saveThis = "";
     $.ajax({
@@ -62,7 +62,7 @@ TestList.prototype.getUrl = function(id, to_load, ta){
 
 
 var testApp = (function($){
-    var myList = new TestList();
+    var myList = new RoseList();
     function start(){
         console.log("yes");
         myList.loadModel();
