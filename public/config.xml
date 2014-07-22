@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<widget>
 <juiceboxgallery
 	galleryTitle=""
 >
@@ -111,3 +111,4 @@
     <caption><![CDATA[Gallery img kindly provided by John Carey of <u><a href="http://www.fiftyfootshadows.net/" target="_blank">Fifty Foot Shadows</a></u>.]]></caption>
   </image>
 </juiceboxgallery>
+</widget>z

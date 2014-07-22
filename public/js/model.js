@@ -1,100 +1,104 @@
-/**
-  The RoseList class has all the methods for downloading the model
-  from the server, updating the model (and sending the updates to the server)
-  and refreshing the model by pulling down the server info.
-
-  
-**/
-
-function RoseList() {
-    this.user = "Rose Art Museum";
-    this.cutoff = 0;
-    this.items = [];
-    this.audios = [];
-
+function TestList(){
+    this.audio = [];
 };
 
-
-
-// we use the locally cached model to lookup elements...
-RoseList.prototype.getElement = function(id){
-    var item;
+TestList.prototype.getElement = function(id){
+    var audio;
     var i;
-    for(i=0; i<this.items.length; i++){
-        item = this.items[i];
-        if(item.id == id){
-            return(item);
+    for(i=0; i<this.audio.length; i++){
+        audio = this.audio[i];
+        if(audio.id == id){
+            return(audio);
         }
     }
 };
 
-
-RoseList.prototype.loadModel = function() {
+TestList.prototype.loadModel = function() {
     var myList = this;
     
     // send request to the server for the items in the list
     $.ajax({
         type: "GET",
-        url: "/model/rose",
-    }).done(function(items) {
-        myList.items = items;
-        items.map(function(x){x.id=x["_id"];});
-        roseView.refreshView(myList);
-        console.log(JSON.stringify(myList.items));
-
+        url: "audios",
+    }).done(function(audio) {
+        myList.audio = audio;
+        audio.map(function(x){x.id=x["_id"];});
+        console.log(JSON.stringify(myList.audio));
     });
 };
 
-RoseList.prototype.loadModelAudio = function() {
+TestList.prototype.getID = function(title) {
+	$.ajax({
+		type: "GET",
+		url: "audios",
+	}).done(function(audios) {
+		audios.forEach(function(clip) {
+			console.log(clip.name);
+			if (clip.name == title) {
+				console.log("CLIP"+clip._id);
+			}
+		});
+	});
+
+}
+
+
+TestList.prototype.getUrl = function(id, to_load, ta){
     var myList = this;
-    
-    // send request to the server for the items in the list
+    saveThis = "";
     $.ajax({
         type: "GET",
-        url: "/model/fs.files",
-    }).done(function(audios) {
-        myList.audios = audios;
-        audios.map(function(x){x.id=x["_id"];});
-        console.log(JSON.stringify(myList.audios));
-
-    });
-};
-
-RoseList.prototype.addElement = function(newItem){
-    console.log("sending "+JSON.stringify(newItem));
-    var myList = this;
-    $.ajax({
-        type: "POST",
-        url: "/model/rose",
-        data: JSON.stringify(newItem),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    }).done(function(items) {
-        myList.loadModel();
+        url: "audios/" + id,
+    }).done(function(audio){    
+        myList.audio = audio;
+        saveThing = JSON.stringify(myList.audio.url);
+        console.log(saveThing);
+        if (to_load)
+        {
+             ta.loadAudio(saveThing);
+        }
     });
 }
 
-RoseList.prototype.updateElement = function(id,newItem){
-    var myList = this;
-    $.ajax({
-        type: "PUT",
-        url: "/model/rose/"+id,
-        data: JSON.stringify(newItem),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    }).done(function(items) {
-        myList.loadModel();
-    });
-}
 
-RoseList.prototype.deleteElement = function(id){
-    var myList = this;
-    $.ajax({
-        type: "DELETE",
-        url: "/model/rose/"+id,
-    }).done(function(items) {
+var testApp = (function($){
+    var myList = new TestList();
+    function start(){
+        console.log("yes");
         myList.loadModel();
-    });
-
-}
+        console.log("no");
+        myList.getID("Thing");
+        
+     //   url = "53c7e08c50dab16733318fd2";
+      //  myList.getUrl(url, true, this);
+        //loadAudio(showThis[0]);
+    }
     
+    /* function playmusic(){
+      myList.loadModel();
+      var firstFile = myList.audios[0];
+      var file = $("#audioPlayer").html(firstFile);
+      console.log(firstFile);
+    } */
+
+
+    function loadAudio(saveThis){
+        console.log(saveThis);
+        saveThis = saveThis.substr(1, saveThis.length-2);
+        var ia = document.getElementById("inneraudio");
+        var oa = document.getElementById("outeraudio");
+        ia.src = saveThis;
+        oa.load();
+    }
+
+    function accessElement(element){
+        var itemTitle = element;
+        item = myList.getElement()
+    }
+
+    testApp = {
+        start: start,
+        loadAudio: loadAudio
+    }
+    return (testApp);
+}(jQuery));
