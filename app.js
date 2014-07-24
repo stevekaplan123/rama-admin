@@ -79,7 +79,3 @@ katherine.save(function(err, katherine){
 app.listen(process.env.PORT || 9000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
-/*var port = 3000;
-app.listen(port, function() {
-    console.log("server is listening on port " + port);
-}); */

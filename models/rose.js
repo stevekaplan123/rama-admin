@@ -18,4 +18,4 @@ var roseSchema = new Schema({
 	}
 })
 
-var Rose = mongoose.model('rose', roseSchema)
+mongoose.model('rose', roseSchema)
