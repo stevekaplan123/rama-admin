@@ -61,12 +61,10 @@ RoseList.prototype.getUrl = function(id, to_load, ta){
 }
 
 
-var testApp = (function($){
+/*var testApp = (function($){
     var myList = new RoseList();
     function start(){
-        console.log("yes");
         myList.loadModel();
-        console.log("no");
         myList.getID("Thing");
         
      //   url = "53c7e08c50dab16733318fd2";
@@ -79,7 +77,7 @@ var testApp = (function($){
       var firstFile = myList.audios[0];
       var file = $("#audioPlayer").html(firstFile);
       console.log(firstFile);
-    } */
+    } 
 
 
     function loadAudio(saveThis){
@@ -101,4 +99,4 @@ var testApp = (function($){
         loadAudio: loadAudio
     }
     return (testApp);
-}(jQuery));
+}(jQuery)); */
