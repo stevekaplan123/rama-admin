@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-var mongodbUri= "mongodb://localhost/pleaseWork"; //change pleaseWork to the name of the db
+var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:9000/rose"; //change pleaseWork to the name of the db
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri);
@@ -40,9 +40,9 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 });
 
 
-app.get('/audios', function(req, res){
-    mongoose.model('audios').find(function(err, audios){
-        res.send(audios);
+app.get('/rose', function(req, res){
+    mongoose.model('rose').find(function(err, rose){
+        res.send(rose);
     });
 });
 
