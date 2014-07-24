@@ -11,8 +11,7 @@
     "express": "^4.4.4",
     "mongodb": "^1.4.7",
     "mongoose": "^3.8.13",
-    "logfmt": "^1.1.2",
-    "mongodb-uri": "^0.9.7"
+    "logfmt": "^1.1.2"
   },
   "engines": {
     "node": "0.10.x"
