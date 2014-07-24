@@ -11,7 +11,12 @@
     "express": "^4.4.4",
     "mongodb": "^1.4.7",
     "mongoose": "^3.8.13",
+<<<<<<< HEAD
     "logfmt": "^1.1.2"
+=======
+    "logfmt": "^1.1.2",
+    "mongodb-uri": "^0.9.7"
+>>>>>>> 4abf5bbd40df6dc16e2c1cb9e521525bf2ce6346
   },
   "engines": {
     "node": "0.10.x"
