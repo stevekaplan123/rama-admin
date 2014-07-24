@@ -29,7 +29,6 @@ mongoose.connect(mongooseUri);
 console.log("Connected");
 
 var db = mongoose.connection;
-console.log("Database: " + db);
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
