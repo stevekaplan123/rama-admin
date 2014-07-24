@@ -26,8 +26,10 @@ var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:9000/rose"; //change pleaseW
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri);
+console.log("Connected");
 
 var db = mongoose.connection;
+console.log("Database: " + db);
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
