@@ -47,7 +47,7 @@ app.get('/rose', function(req, res){
     });
 });
 
-app.get('/audios/:userId', function(req, res){
+/*app.get('/audios/:userId', function(req, res){
     mongoose.model('audios').findById(req.params.userId, function(err, audios){
         res.send(audios);
     });
@@ -58,7 +58,7 @@ app.get('/audios/:userTitle', function(req,res){
         res.send(audios);
     });
 
-});
+}); */
 
 
 
