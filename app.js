@@ -17,16 +17,13 @@ app.use(bodyParser.json());
 // log the requests
 app.use(function(req, res, next) {
     console.log('%s %s %s', req.method, req.url, JSON.stringify(req.body));
-
-    //console.log("myData = "+JSON.stringify(myData));
     next();
 });
 
-var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:9000/rose"; //change pleaseWork to the name of the db
+var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri);
-//console.log("Connected");
 
 var db = mongoose.connection;
 
