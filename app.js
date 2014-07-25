@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
+var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/pleaseWork"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri);
