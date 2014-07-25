@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var roseSchema = new Schema({
-	title: String,
+	/*title: String,
 	audio_on_load: String,
 	image_on_load: String,
 	categories: [String, String],
@@ -15,7 +15,8 @@ var roseSchema = new Schema({
 		audio_on_load: String,
 		medium: String,
 		style: String
-	}
+	}*/
+	hello: String
 })
 
 mongoose.model('rose', roseSchema)
