@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
 var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
-var pieceModel = mongoose.model('piece', {hello: String});
+var pieceModel = mongoose.model('pieces', {hello: String});
 
 mongoose.connect(mongooseUri);
 
@@ -40,9 +40,9 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 });
 
 
-app.get('/piece', function(req, res){
-    pieceModel.find(function(err, piece){
-        res.send(piece);
+app.get('/pieces', function(req, res){
+    pieceModel.find(function(err, pieces){
+        res.send(pieces);
     });
 });
 
