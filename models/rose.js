@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var roseSchema = new Schema({
+var pieceSchema = new Schema({
 	/*title: String,
 	audio_on_load: String,
 	image_on_load: String,
@@ -19,4 +19,4 @@ var roseSchema = new Schema({
 	hello: String
 })
 
-mongoose.model('rose', roseSchema)
+mongoose.model('piece', pieceSchema)
