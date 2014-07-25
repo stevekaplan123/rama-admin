@@ -36,7 +36,7 @@ var pieceModel = mongoose.model('pieces', {title: String,
         audio_on_load: String,
         medium: String,
         style: String
-    });
+    }});
 
 mongoose.connect(mongooseUri);
 
