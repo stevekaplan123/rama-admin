@@ -19,4 +19,4 @@ var pieceSchema = new Schema({
 	hello: String
 });
 
-mongoose.model('piece', pieceSchema)
+//mongoose.model('piece', pieceSchema)
