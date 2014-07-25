@@ -40,7 +40,6 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 
 app.get('/rose', function(req, res){
     mongoose.model('rose').find(function(err, rose){
-        alert(rose);
         res.send(rose);
     });
 });
