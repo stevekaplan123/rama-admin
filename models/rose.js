@@ -5,7 +5,7 @@ var roseSchema = new Schema({
 	title: String,
 	audio_on_load: String,
 	image_on_load: String,
-	categories: [String],
+	categories: [String, String],
 	artist_info: {
 		audio_on_load: String,
 		biography: String,
