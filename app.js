@@ -10,7 +10,7 @@ var fs = require('fs');
 
 // serve static content from the public folder 
 app.use("/", express.static(__dirname + '/public'));
-
+mongoose.set("debug", true);
 
 // parse the bodies of all other queries as json
 app.use(bodyParser.json());
