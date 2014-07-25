@@ -17,6 +17,6 @@ var pieceSchema = new Schema({
 		style: String
 	}*/
 	hello: String
-})
+});
 
 mongoose.model('piece', pieceSchema)
