@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
 var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
-var pieceModel = mongoose.model('piece', pieceSchema);
+var pieceModel = mongoose.model('piece', {hello: String});
 
 mongoose.connect(mongooseUri);
 
