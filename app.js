@@ -23,20 +23,26 @@ app.use(function(req, res, next) {
 var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
 
-var pieceModel = mongoose.model('pieces', {title: String,
-    audio_on_load: String,
-    image_on_load: String,
-    categories: [String, String],
-    artist_info: {
+var pieceModel = mongoose.model('pieces', {
+    piece_basics: {
+        title: String,
+        year: Number,
+        artist: String
+        },
+    piece_details: {
+        audio_on_load: String,
+        medium: String,
+        style: String,
+        summary: String
+        },
+    artist_details: {
         audio_on_load: String,
         biography: String,
         career: String
-    },
-    piece_info: {
-        audio_on_load: String,
-        medium: String,
-        style: String
-    }});
+        },
+    categories: [String, String]
+    
+});
 
 mongoose.connect(mongooseUri);
 
