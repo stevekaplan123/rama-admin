@@ -1,99 +1,98 @@
 #!/usr/bin/env node --harmony
 
+/***
+ firstServer.js
+ This is a simple server illustrating middleware and basic REST functionality
+ This demo also adds the mongo database connection, but everything is in one file
+ on the server side. We will break this out so that it has model/view/controller on
+ the server and client in the next demo...
+ ***/
+
 'use strict';
 var express = require('express');
 var bodyParser = require('body-parser'); // this allows us to pass JSON values to the server (see app.put below)
 var app = express();
-var mongoose = require('mongoose'); //new
-var uriUtil = require('mongodb-uri');
-var fs = require('fs');
+
+var monk = require('monk');
+var db = monk('localhost:27017/rose');
+
 
 // serve static content from the public folder 
 app.use("/", express.static(__dirname + '/public'));
-mongoose.set("debug", true);
+
 
 // parse the bodies of all other queries as json
 app.use(bodyParser.json());
+
+
 // log the requests
 app.use(function(req, res, next) {
     console.log('%s %s %s', req.method, req.url, JSON.stringify(req.body));
+    //console.log("myData = "+JSON.stringify(myData));
     next();
 });
 
-var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
-var mongooseUri= uriUtil.formatMongoose(mongodbUri);
-
-var pieceModel = mongoose.model('pieces', {
-    piece_basics: {
-        title: String,
-        year: Number,
-        artist: String
-        },
-    piece_details: {
-        audio_on_load: String,
-        medium: String,
-        style: String,
-        summary: String
-        },
-    artist_details: {
-        audio_on_load: String,
-        biography: String,
-        career: String
-        },
-    categories: [String, String]
-    
+app.post('/file-upload', function(req, res, next) {
+    console.log(req.body);
+    console.log(req.files);
 });
 
-mongoose.connect(mongooseUri);
-
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-
-db.once('open', function callback (){
-    console.log("db connection");
-})
-
-fs.readdirSync(__dirname + '/models').forEach(function(filename){
-    if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+// get a particular item from the model
+app.get('/model/:collection/:id', function(req, res) {
+    var collection = db.get(req.params.collection);
+    collection.find({_id: req.params.id}, {}, function(e, docs) {
+        console.log(JSON.stringify(docs));
+        if (docs.length>0){
+            res.json(200, docs[0]); alert(docs);}
+        else
+            res.json(404,{});
+    })
 });
 
 
-app.get('/pieces', function(req, res){
-    pieceModel.find(function(err, pieces){
-        res.send(pieces);
+// get all items from the model
+app.get('/model/:collection', function(req, res) {
+    var collection = db.get(req.params.collection);
+    collection.find({}, {}, function(e, docs) {
+        console.log(JSON.stringify(docs));
+        res.json(200, docs);
+    })
+});
+
+// change an item in the model
+app.put('/model/:collection/:id', function(req, res) {
+    var collection = db.get(req.params.collection);
+    collection.update({
+        "_id": req.params.id
+    }, req.body);
+    res.json(200, {});
+});
+
+// add new item to the model
+// in this example we show how to use javascript promises
+// to simply asynchronous calls
+app.post('/model/:collection', function(req, res) {
+    console.log("post ... " + JSON.stringify(req.body));
+    var collection = db.get(req.params.collection);
+    var promise = collection.insert(req.body);
+    promise.success(function(doc){res.json(200,doc)});
+    promise.error(function(error){res.json(404,error)});
+});
+
+// delete a particular item from the model
+app.delete('/model/:collection/:id', function(req, res) {
+    var id = req.params.id;
+    console.log("deleting " + id);
+    var collection = db.get(req.params.collection);
+    collection.remove({
+        _id: id
     });
+    res.json(200, {});
 });
 
-/*app.get('/audios/:userId', function(req, res){
-    mongoose.model('audios').findById(req.params.userId, function(err, audios){
-        res.send(audios);
-    });
-});
 
-app.get('/audios/:userTitle', function(req,res){
-    mongoose.model('audios').find({'name': req.params.userTitle}, function(err, audios){
-        res.send(audios);
-    });
-
-}); */
-
-
-
-/*
-How to add to audio
-var Audio = mongoose.model('audios')
-
-var katherine = new Audio({
-    name: "katherine",
-    url: "https://s3.amazonaws.com/RamaAudio/katherine_001.wav"
-});
-katherine.save(function(err, katherine){
-    if(err) return console.error(err);
-    console.dir(katherine);
-}); */
-
-
-app.listen(process.env.PORT || 9000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+// listen on port 3000
+var port = 3000;
+app.listen(port, function() {
+    console.log("server is listening on port " + port);
 });

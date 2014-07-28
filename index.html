@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+	<script src="jquery.js"></script>
+
+
+<body onload="load_dropdown();">
+	<head><h1>WELCOME TO THE ADMINISTRATION PAGE FOR THE ROSE TOUR GUIDE APPLICATION</h1><h2>Please
+	select a previous piece or select "add new piece" from the drop down menu.</h2></head>
+	
+	<input type="button" value="Reload" onclick="load_dropdown()"/><input type="button" value="Delete" onclick="deleteSelected()"/>
+<div id="formarea">
+<select size="8" name='pieces' id='whichPiece' onchange='get_selection();'> 
+<option value='default' selected>--Art Works at the Rose--</option> 
+<option value='new_piece'>Add New Piece</option>
+</select>
+</div>
+
+<div id="editform" style="visibility:hidden;">
+<div id="div_id">ID #:</div>
+<div id="div_title">Enter title:<input type="text" id="title"/><input name="title" id="title_TTS" type="radio"/>TTS<input id="title_Recording" name="title" type="radio"/>Recording</div>
+<div id="div_date_created">Enter date created:<input type="text" id="date_created"/><input name="date_created" id="date_created_TTS" type="radio"/>TTS<input name="date_created" id="date_created_Recording" type="radio"/>Recording</div>
+<div id="div_style">Enter style:<input type="text" id="style"/><input name="style" id="style_TTS" type="radio"/>TTS<input name="style" id="style_Recording" type="radio"/>Recording</div>
+<div id="div_artist">Enter artist name:<input type="text" id="artist"/><input name="artist" id="artist_TTS" type="radio"/>TTS<input name="artist" id="artist_Recording" type="radio"/>Recording</div>
+<div id="div_image">Enter image URL:<input type="text" id="image"/></div>
+<input type="button" value="Submit" onclick="submit()"/>
+</div>
+
+</body>
+
+<script>
+
+function piece(title, title_TTS, artist, artist_TTS, date_created, date_created_TTS, style, style_TTS, image)
+{
+	this.title = title;
+	this.title_TTS = title_TTS;
+	this.artist = artist;
+	this.artist_TTS = artist_TTS;
+	this.date_created = date_created;
+	this.date_created_TTS = date_created_TTS;
+	this.style = style;
+	this.style_TTS = style_TTS;
+	this.image = image;
+	
+}
+
+
+function RoseAdmin() {
+    this.items= [];
+
+};
+
+
+
+// we use the locally cached model to lookup elements...
+RoseAdmin.prototype.getElement = function(id){
+    var item;
+    var i;
+    for(i=0; i<this.items.length; i++){
+        item = this.items[i];
+        if(item.id == id){
+            return(item);
+        }
+    }
+};
+
+current = -1; //below 0 means update, -1 means new, -2 means do nothing
+
+RoseAdmin.prototype.loadModel = function(selected) {
+	//first strip off title so we just have the ID
+	
+	selected = selected.split("(")[0];
+	
+	
+    // send request to the server for the items in the list
+    
+    $.ajax({
+        type: "GET",
+        url: "/model/rose",
+    }).done(function(new_items) {
+
+        this.items = new_items;
+        this.items.map(function(x){x.id=x["_id"];});
+		current = -1;
+		var count = -1;
+		this.items.forEach(function(item) {
+				count+=1;
+				if (selected == "--Art Works at the Rose--")
+				{
+					current = -2; //don't do anything
+				}
+				else if (selected == item._id) 
+				{
+					current = count;
+					document.getElementById("div_id").innerHTML = "ID#"+item._id;
+					document.getElementById("div_title").childNodes[1].value = item.title;
+					if (item.title_TTS){
+						document.getElementById("title_TTS").checked = true;
+					}
+					else
+					{
+						document.getElementById("title_Recording").checked = true;
+					}
+					
+					
+					document.getElementById("div_artist").childNodes[1].value = item.artist;
+					if (item.artist_TTS){
+						document.getElementById("artist_TTS").checked = true;
+					}
+					else
+					{
+						document.getElementById("artist_Recording").checked = true;
+					}
+					
+					
+					document.getElementById("div_style").childNodes[1].value = item.style;
+					if (item.style_TTS){
+						document.getElementById("style_TTS").checked = true;
+					}
+					else
+					{
+						document.getElementById("style_Recording").checked = true;
+					}
+					
+					
+					document.getElementById("div_date_created").childNodes[1].value = item.date_created;
+					if (item.date_created_TTS){
+						document.getElementById("date_created_TTS").checked = true;
+					}
+					else
+					{
+						document.getElementById("date_created_Recording").checked = true;
+					}
+					
+					document.getElementById("div_image").childNodes[1].value = item.image;
+		
+				}
+				
+			});
+			if (current < 0)  //did not find a match because we're adding new piece or we're at first entry
+			{
+				RoseAdminApp.emptyForm();
+				
+				return;	
+			}
+    });
+};
+
+RoseAdmin.prototype.emptyForm = function()
+{
+		document.getElementById("div_id").innerHTML = "ID #: [new piece]";
+		document.getElementById("div_title").childNodes[1].value = "";
+		document.getElementById("title_TTS").checked = false;
+		document.getElementById("title_Recording").checked = false;
+	
+	
+		document.getElementById("div_artist").childNodes[1].value = "";
+		document.getElementById("artist_TTS").checked = false;
+		document.getElementById("artist_Recording").checked = false;
+	
+	
+		document.getElementById("div_style").childNodes[1].value = "";
+		document.getElementById("style_TTS").checked = false;
+		document.getElementById("style_Recording").checked = false;
+	
+	
+		document.getElementById("div_date_created").childNodes[1].value = "";
+		document.getElementById("date_created_TTS").checked = false;
+		document.getElementById("date_created_Recording").checked = false;
+	
+		document.getElementById("div_image").childNodes[1].value = "";
+}
+
+
+
+RoseAdmin.prototype.addElement = function(newItem){
+    console.log("sending "+JSON.stringify(newItem));
+    var myList = this;
+    $.ajax({
+        type: "POST",
+        url: "/model/rose",
+        data: JSON.stringify(newItem),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(function(items) {
+		//get_selection();
+    });
+}
+
+RoseAdmin.prototype.updateElement = function(id, newItem){
+   $.ajax({
+        type: "GET",
+        url: "/model/rose",
+    }).done(function(new_items) {
+		var count = -1;
+		new_items.forEach(function(item) {
+			count+=1;
+			if (item._id==id) {
+				$.ajax({
+					type: "PUT",
+					url: "/model/rose/"+item._id,
+					data: JSON.stringify(newItem),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json"
+				}).done(function(items) {
+					load_dropdown();
+				});
+			}
+		});	
+	
+	});
+}
+
+
+RoseAdmin.prototype.deleteElement = function(id){
+	title = id.split("(")[1];
+	title = title.substr(0,title.length-1);
+	
+	id = id.split("(")[0];
+
+    $.ajax({
+        type: "DELETE",
+        url: "/model/rose/"+id,
+    }).done(function(items) {
+		alert("You have successfully deleted " +title+".");
+		load_dropdown();
+		//get_selection();
+    });
+
+}
+    
+
+var RoseAdminApp = new RoseAdmin;
+
+function get_selection()
+{
+	
+	var obj = document.getElementById("whichPiece");
+    var selected = obj.options[obj.selectedIndex].text;
+    if (selected == "--Art Works at the Rose--")
+		document.getElementById("editform").style.visibility = "hidden";
+	else
+	{
+		document.getElementById("editform").style.visibility = "visible";
+		RoseAdminApp.loadModel(selected);
+	}
+}
+
+
+function deleteSelected() {
+	
+	var obj = document.getElementById("whichPiece");
+    var selected = obj.options[obj.selectedIndex].text;
+    if (selected == "--Art Works at the Rose--" || selected == "Add New Piece")
+		alert("Cannot delete default values.");
+	else
+	{
+		RoseAdminApp.deleteElement(selected);
+	}	
+
+}
+
+function load_dropdown()
+{
+	added_txt = "";
+	
+	 $.ajax({
+        type: "GET",
+        url: "/model/rose",
+    }).done(function(new_items) {
+		var count=-1;
+		new_items.forEach(function(item){
+			count+=1;
+			added_txt += "<option value='"+count+"'>"+item._id+"("+item.title+")</option>";
+		});
+		orig_txt = "<select name='pieces' id='whichPiece' onchange='get_selection();'> \
+<option value='default' selected>--Art Works at the Rose--</option> \
+<option value='new_piece'>Add New Piece</option>";
+		document.getElementById("formarea").innerHTML = orig_txt+added_txt+"</select>";
+		document.getElementById("editform").style.visibility = "hidden";
+	});
+}
+
+function submit() {
+	
+	var title = document.getElementById("div_title").childNodes[1].value;
+	var title_TTS = document.getElementById("title_TTS").checked;
+	
+	var date_created = document.getElementById("div_date_created").childNodes[1].value;
+	var date_created_TTS = document.getElementById("date_created_TTS").checked;
+	
+	var style = document.getElementById("div_style").childNodes[1].value;
+	var style_TTS = document.getElementById("style_TTS").checked;
+	
+	var artist = document.getElementById("div_artist").childNodes[1].value;
+	var artist_TTS = document.getElementById("artist_TTS").checked;
+	
+	var image = document.getElementById("div_image").childNodes[1].value;
+	
+	var obj = document.getElementById("whichPiece");
+    var selected = obj.options[obj.selectedIndex].text;
+	if (selected == "--Art Works at the Rose Art Museum--")
+	{
+		return;
+	}
+	else if (selected == "Add New Piece") //add new piece
+	{
+		var new_piece = new piece(title, title_TTS, artist, artist_TTS, date_created, date_created_TTS, style, style_TTS, image);
+		RoseAdminApp.addElement(new_piece);
+		load_dropdown();
+		alert("You have successfully added "+title+".");
+	}
+	else  //update existing piece
+	{
+		
+		var new_piece = new piece(title, title_TTS, artist, artist_TTS, date_created, date_created_TTS, style, style_TTS, image);
+		id = selected.split("(")[0];
+		RoseAdminApp.updateElement(id, new_piece);
+		alert("You have successfully updated "+id+".");
+	}
+	RoseAdminApp.emptyForm();
+	document.getElementById("whichPiece").value = "default";
+	document.getElementById("editform").style.visibility="hidden";
+
+}
+</script>
+
+
+</html>
