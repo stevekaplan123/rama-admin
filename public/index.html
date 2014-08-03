@@ -133,7 +133,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					document.getElementById("div_artist").childNodes[1].value = item.piece_basics.artist;
 					document.getElementById("div_dimensions").childNodes[1].value = item.piece_basics.dimensions;
 					document.getElementById("div_year").childNodes[1].value = item.piece_basics.year;
-					document.getElementById("div_image").childNodes[1].value = item.piece_basics.image;
+					document.getElementById("div_image").childNodes[1].value = item.picture;
 
 
 
@@ -146,7 +146,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					setValue(document.getElementById("div_pieceonload"), item.piece_details.audio_on_load);
 					setValue(document.getElementById("div_style"), item.piece_details.style);
 					setValue(document.getElementById("div_medium"), item.piece_details.medium);
-					setValue(document.getElementById("div_summary"), item.piece_details.summary);		
+				//	setValue(document.getElementById("div_summary"), item.piece_details.summary);		
 				}
 				
 			});
