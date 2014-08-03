@@ -24,17 +24,33 @@
 <div id="div_dimensions">Enter dimensions:<input type="text" id="dimensions"/></div>
 
 <div>Artist URL info:</div>
-<div id="div_artistonload">Enter audio on load URL: <input type="text" id="artist_on_load"/></div>
-<div id="div_career">Enter career URL: <input type="text" id="career"/></div>
-<div id="div_biography">Enter biography URL: <input type="text" id="bio"/></div>
+<div id="div_artistonload">Enter audio on load URL: <input type="text" id="artist_on_load"/>
+<input type="text" id="artist_on_load2"/><input type="text" id="artist_on_load3"/>
+</div>
+<div id="div_career">Enter career URL: <input type="text" id="career"/>
+<input type="text" id="career2"/><input type="text" id="career3"/>
+</div>
+<div id="div_biography">Enter biography URL: <input type="text" id="bio"/>
+<input type="text" id="bio2"/><input type="text" id="bio3"/>
+</div>
 
 <div>Piece URL info:</div>
 
-<div id="div_image">Enter image URL:<input type="text" id="image"/></div>
-<div id="div_pieceonload">Enter audio on load URL: <input type="text" id="piece_on_load"/></div>
-<div id="div_style">Enter style URL:<input type="text" id="style"/></div>
-<div id="div_medium">Enter medium URL:<input type="text" id="medium"/></div>
-<div id="div_summary">Enter summary URL:<input type="text" id="summary"/></div>
+<div id="div_image">Enter image URL:<input type="text" id="image"/>
+<input type="text" id="image2"/><input type="text" id="image3"/>
+</div>
+<div id="div_pieceonload">Enter audio on load URL: <input type="text" id="piece_on_load"/>
+<input type="text" id="piece_on_load2"/><input type="text" id="piece_on_load3"/>
+</div>
+<div id="div_style">Enter style URL:<input type="text" id="style"/>
+<input type="text" id="style2"/><input type="text" id="style3"/>
+</div>
+<div id="div_medium">Enter medium URL:<input type="text" id="medium"/>
+<input type="text" id="medium2"/><input type="text" id="medium3"/>
+</div>
+<div id="div_summary">Enter summary URL:<input type="text" id="summary"/>
+<input type="text" id="summary2"/><input type="text" id="summary3"/>
+</div>
 
 
 <input type="button" value="Submit" onclick="submit()"/>
@@ -43,28 +59,16 @@
 </body>
 
 <script>
-/*{title:"Forget it Forget me", audio_on_load:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav",
- image_on_load:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav",categories:["about the artist","about the piece"], 
-  artist:{audio_on_load:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  biography:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  career:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav"},
-  piece_info:{audio_on_load:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  title:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  medium:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav",
-  style:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  year:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav",
-  dimensions:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav", 
-  summary:"https://s3.amazonaws.com/RamaAudio/aboutpiece_title.wav"}}
-   
- function piece(title, audio_on_load, image_on_load, artist, piece_info) {
-	this.title = title;
-    this.audio_on_load = audio_on_load;
-    this.image_on_load = image_on_load;
-    categories = ["about the artist", "about the piece"];
-    artist = {audio_on_load:"", biography:"", career:""};
-    piece_info = {audio_on_load:"", title:"", medium:"", style:"", year:"", dimensions:"", summary:""}; 
-}*/
+
 	
+function setValue(doc, new_value){
+	value_array = new_value.split(',');
+	for (int i=0; i<value_array.length; i++)
+	{
+		doc.childNodes[i+1].value = value_array[i];
+	}
+}
+					
 function piece(piece_basics, artist_details, piece_details)
 {
 	this.piece_basics = piece_basics;
@@ -107,7 +111,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
     
     $.ajax({
         type: "GET",
-        url: serverURL+"/model/rose",
+        url: serverURL+"/pieces",
     }).done(function(new_items) {
 		
 
@@ -133,16 +137,16 @@ RoseAdmin.prototype.loadModel = function(selected) {
 
 
 
-					document.getElementById("div_artistonload").childNodes[1].value = item.artist_details.audio_on_load;
-					document.getElementById("div_career").childNodes[1].value = item.artist_details.career;
-					document.getElementById("div_biography").childNodes[1].value = item.artist_details.biography;
+					setValue(document.getElementById("div_artistonload"), item.artist_details.audio_on_load);
+					setValue(document.getElementById("div_career"), item.artist_details.career);
+					setValue(document.getElementById("div_biography"), item.artist_details.biography);
 
 
-					document.getElementById("div_pieceonload").childNodes[1].value = item.piece_details.audio_on_load;
-					document.getElementById("div_style").childNodes[1].value = item.piece_details.style;
-					document.getElementById("div_medium").childNodes[1].value = item.piece_details.medium;
-					document.getElementById("div_summary").childNodes[1].value = item.piece_details.summary;
-		
+
+					setValue(document.getElementById("div_pieceonload"), item.piece_details.audio_on_load);
+					setValue(document.getElementById("div_style"), item.piece_details.style);
+					setValue(document.getElementById("div_medium"), item.piece_details.medium);
+					setValue(document.getElementById("div_summary"), item.piece_details.summary);		
 				}
 				
 			});
@@ -159,24 +163,25 @@ RoseAdmin.prototype.emptyForm = function()
 {
 		document.getElementById("div_id").innerHTML = "ID #: [new piece]";
 		
+		for (int i=1; i<4; i++)
+		{
 		
-		document.getElementById("div_title").childNodes[1].value = "";
-		document.getElementById("div_artist").childNodes[1].value = "";
-		document.getElementById("div_dimensions").childNodes[1].value = "";
-		document.getElementById("div_year").childNodes[1].value = "";
+			document.getElementById("div_title").childNodes[i].value = "";
+			document.getElementById("div_artist").childNodes[i].value = "";
+			document.getElementById("div_dimensions").childNodes[i].value = "";
+			document.getElementById("div_year").childNodes[i].value = "";
+
+			document.getElementById("div_artistonload").childNodes[i].value = "";
+			document.getElementById("div_career").childNodes[i].value = "";
+			document.getElementById("div_biography").childNodes[i].value = "";
 
 
-					document.getElementById("div_artistonload").childNodes[1].value = "";
-					document.getElementById("div_career").childNodes[1].value = "";
-					document.getElementById("div_biography").childNodes[1].value = "";
-
-
-					document.getElementById("div_pieceonload").childNodes[1].value = "";
-					document.getElementById("div_style").childNodes[1].value = "";
-					document.getElementById("div_medium").childNodes[1].value = "";
-					document.getElementById("div_summary").childNodes[1].value = "";
-					document.getElementById("div_image").childNodes[1].value = "";
-
+			document.getElementById("div_pieceonload").childNodes[i].value = "";
+			document.getElementById("div_style").childNodes[i].value = "";
+			document.getElementById("div_medium").childNodes[i].value = "";
+			document.getElementById("div_summary").childNodes[i].value = "";
+			document.getElementById("div_image").childNodes[i].value = "";
+		}
 }
 
 
@@ -186,7 +191,7 @@ RoseAdmin.prototype.addElement = function(newItem){
     var myList = this;
     $.ajax({
         type: "POST",
-        url: serverURL+"/model/rose",
+        url: serverURL+"/pieces",
         data: JSON.stringify(newItem),
         contentType: "application/json; charset=utf-8",
         dataType: "json"
@@ -198,7 +203,7 @@ RoseAdmin.prototype.addElement = function(newItem){
 RoseAdmin.prototype.updateElement = function(id, newItem){
    $.ajax({
         type: "GET",
-        url: serverURL+"/model/rose",
+        url: serverURL+"/pieces",
     }).done(function(new_items) {
 		var count = -1;
 		new_items.forEach(function(item) {
@@ -206,7 +211,7 @@ RoseAdmin.prototype.updateElement = function(id, newItem){
 			if (item._id==id) {
 				$.ajax({
 					type: "PUT",
-					url: serverURL+"/model/rose/"+item._id,
+					url: serverURL+"/pieces/"+item._id,
 					data: JSON.stringify(newItem),
 					contentType: "application/json; charset=utf-8",
 					dataType: "json"
@@ -228,7 +233,7 @@ RoseAdmin.prototype.deleteElement = function(id){
 
     $.ajax({
         type: "DELETE",
-        url: serverURL+"/model/rose/"+id,
+        url: serverURL+"/pieces/"+id,
     }).done(function(items) {
 		alert("You have successfully deleted " +title+".");
 		load_dropdown();
@@ -269,12 +274,11 @@ function deleteSelected() {
 }
 
 function submit() {
-	var title = document.getElementById("div_title").childNodes[1].value;
+    var title = document.getElementById("div_title").childNodes[1].value;
 	var year = document.getElementById("div_year").childNodes[1].value;
 	var artist = document.getElementById("div_artist").childNodes[1].value;
 	var dimensions = document.getElementById("div_dimensions").childNodes[1].value;
 	var image = document.getElementById("div_image").childNodes[1].value;
-
 	
 	var audio_artistonload = document.getElementById("div_artistonload").childNodes[1].value;	
 	var career = document.getElementById("div_career").childNodes[1].value;	
@@ -285,7 +289,32 @@ function submit() {
 	var audio_pieceonload = document.getElementById("div_pieceonload").childNodes[1].value;	
 	var summary = document.getElementById("div_summary").childNodes[1].value;	
 	var medium = document.getElementById("div_medium").childNodes[1].value;	
-	var style = document.getElementById("div_style").childNodes[1].value;	
+	var style = document.getElementById("div_style").childNodes[1]ivalue;
+		
+    for (int i=2; i<4; i++)
+    {
+		if (document.getElementById("div_artistonload").childNodes[i].value != "")
+				audio_artistonload += "," + document.getElementById("div_artistonload").childNodes[i].value;
+				
+		if (document.getElementById("div_career").childNodes[1].value != "")
+				career += "," + document.getElementById("div_career").childNodes[i].value;	
+	
+		if (document.getElementById("div_biography").childNodes[i].value != "")
+				biography += "," + document.getElementById("div_biography").childNodes[i].value;	
+
+	    if (document.getElementById("div_pieceonload").childNodes[i].value != "")
+				audio_pieceonload += "," + document.getElementById("div_pieceonload").childNodes[i].value;	
+				
+		if (document.getElementById("div_summary").childNodes[i].value != "")
+				summary += "," + document.getElementById("div_summary").childNodes[i].value;
+				
+		if (document.getElementById("div_medium").childNodes[i].value != "")	
+				medium += "," + document.getElementById("div_medium").childNodes[1].value;	
+		
+		if (document.getElementById("div_style").childNodes[i].value != "")
+				style += ","+document.getElementById("div_style").childNodes[i].value;
+
+    }
 	
 	var obj = document.getElementById("whichPiece");
 	
@@ -316,7 +345,7 @@ function submit() {
 	RoseAdminApp.emptyForm();
 	document.getElementById("whichPiece").value = "default";
 	document.getElementById("editform").style.visibility="hidden";
-
+  }
 }
 
 function load_dropdown()
