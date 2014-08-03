@@ -73,11 +73,11 @@ app.get('/pieces/:id', function(req,res) {
 });
 
 app.put('/pieces/:id', function(req, res) {
-   pieces.update({"_id":req.params.id}, req.body);
+   piece.update({"_id":req.params.id}, req.body);
 });
 
 app.post('/pieces', function(req, res) {
-   pieces.insert(req.body);
+   Piece.insert(req.body);
 });
 
 app.delete('/pieces/:id', function(req, res) {
