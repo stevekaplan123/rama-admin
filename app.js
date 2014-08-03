@@ -65,6 +65,13 @@ app.get('/pieces', function(req, res){
     });
 });
 
+app.get('/pieces/:id', function(req,res) {
+   mongoose.model('pieces').findById(req.params.id, function(err, pieces) {
+       res.send(pieces);
+        
+   }); 
+});
+
 /*app.get('/audios/:userId', function(req, res){
     mongoose.model('audios').findById(req.params.userId, function(err, audios){
         res.send(audios);
@@ -88,7 +95,7 @@ var katherine = new Audio({
     name: "katherine",
     url: "https://s3.amazonaws.com/RamaAudio/katherine_001.wav"
 });
-katherine.save(function(err, katherine){
+app.save(function(err, ){
     if(err) return console.error(err);
     console.dir(katherine);
 }); */
