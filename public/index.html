@@ -1,398 +1,379 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>The Rose | Brandeis University</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"> 
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="css/styles.css" media="all" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/stylerama.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.1/modernizr.min.js"></script>
-    <script src="js/jquery-2.1.1.min.js"></script>
+	<script src="jquery.js"></script>
 
 
-  <!-- SlidesJS Optional: If you'd like to use this design -->
-  <style>
-    body {
-      -webkit-font-smoothing: antialiased;
-    }
+<body onload="load_dropdown();">
+	<head><h1>WELCOME TO THE ADMINISTRATION PAGE FOR THE ROSE TOUR GUIDE APPLICATION</h1><h2>Please
+	select a previous piece or select "add new piece" from the drop down menu.</h2></head>
+	
+	<input type="button" value="Reload" onclick="load_dropdown()"/><input type="button" value="Delete" onclick="deleteSelected()"/>
+<div id="formarea">
+<select size="8" name='pieces' id='whichPiece' onchange='get_selection();'> 
+<option value='default' selected>--Art Works at the Rose--</option> 
+<option value='new_piece'>Add New Piece</option>
+</select>
+</div>
 
-    #slides {
-      display: none
-    }
+<div id="editform" style="visibility:hidden;">
+<div id="div_id">ID #:</div>
 
-    #slides .slidesjs-navigation {
-      margin-top:3px;
-    }
+<div id="div_title">Enter title:<input type="text" id="title"/></div>
+<div id="div_artist">Enter artist name:<input type="text" id="artist"/></div>
+<div id="div_year">Enter year:<input type="text" id="year"/></div>
+<div id="div_dimensions">Enter dimensions:<input type="text" id="dimensions"/></div>
 
-    #slides .slidesjs-previous {
-      margin-right: 5px;
-      float: left;
-    }
+<div>Artist URL info:</div>
+<div id="div_artistonload">Enter audio on load URL: <input type="text" id="artist_on_load"/>
+<input type="text" id="artist_on_load2"/><input type="text" id="artist_on_load3"/>
+</div>
+<div id="div_career">Enter career URL: <input type="text" id="career"/>
+<input type="text" id="career2"/><input type="text" id="career3"/>
+</div>
+<div id="div_biography">Enter biography URL: <input type="text" id="bio"/>
+<input type="text" id="bio2"/><input type="text" id="bio3"/>
+</div>
 
-    #slides .slidesjs-next {
-      margin-right: 5px;
-      float: left;
-    }
+<div>Piece URL info:</div>
 
-    .slidesjs-pagination {
-      margin: 6px 0 0;
-      float: right;
-      list-style: none;
-    }
-
-    .slidesjs-pagination li {
-      float: left;
-      margin: 0 1px;
-    }
-
-    .slidesjs-pagination li a {
-      display: block;
-      width: 13px;
-      height: 0;
-      padding-top: 13px;
-      background-image: url(img/pagination.png);
-      background-position: 0 0;
-      float: left;
-      overflow: hidden;
-    }
-
-    .slidesjs-pagination li a.active,
-    .slidesjs-pagination li a:hover.active {
-      background-position: 0 -13px
-    }
-
-    .slidesjs-pagination li a:hover {
-      background-position: 0 -26px
-    }
-
-    #slides a:link,
-    #slides a:visited {
-      color: #333
-    }
-
-    #slides a:hover,
-    #slides a:active {
-      color: #9e2020
-    }
-
-    .navbar {
-      overflow: hidden
-    }
- /* End SlidesJS Optional-->
-
-  <!-- SlidesJS Required: These styles are required if you'd like a responsive slideshow */
-    #slides {
-      display: none
-    }s
-
-    .container {
-      margin: 0 auto
-    }
-
-    /* For tablets & smart phones */
-    @media (max-width: 767px) {
-
-      .container {
-        width: auto
-      }
-    }
-
-    /* For smartphones */
-    @media (max-width: 480px) {
-      .container {
-        width: auto
-      }
-    }
-
-    /* For smaller displays like laptops */
-    @media (min-width: 768px) and (max-width: 979px) {
-      .container {
-        width: 724px
-      }
-    }
-
-    /* For larger displays */
-    @media (min-width: 1200px) {
-      .container {
-        width: 1170px
-      }
-    }
-  </style>
-  <!-- /SlidesJS Required: -->
-</head>
-
-<!-- Start body ... onhashchange updates the title of the page -->
-<body onhashchange="getURL()">
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/speech.js"></script>
-    <script type="text/javascript" src="js/handler.js"></script>
-    <script src="js/model.js"></script>
-    <script src="js/view.js"></script>
-    <script src="js/controller.js"></script>
-    <script type="text/javascript">
-        app.initialize();
-    </script>	
-	<!--Start Content-->
-	<div data-role="page" class="pages" id="home" data-theme="b">	 
-
-	<!-- Header of all pages ... always loads no matter what page -->
-    <header class="clearfix">
-      <a class="menu pull-left" data-position="left" href="#">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </a>
-      <a href="tel:1234567890">
-      	<button type="button" class="btn btn-default btn-lg pull-right" >
-      		<span class="glyphicon glyphicon-phone-alt"></span>
-		</button>
-      </a>
-      <div id="page-title">
-	  </div>
-    </header>
-    <audio controls style="visibility:hidden">
-  <source src="" id="biography">
-  Your browser does not support this audio format.
-</audio>
-
-    <audio controls style="visibility:hidden">
-  <source src="" id="career">
-  Your browser does not support this audio format.
-</audio>
-
-    <audio controls style="visibility:hidden">
-  <source src="" id="about-the-artist">
-  Your browser does not support this audio format.
-</audio>
-
-    <audio controls style="visibility:hidden">
-  <source src="" id="about-the-piece">
-  Your browser does not support this audio format.
-</audio>
+<div id="div_image">Enter image URL:<input type="text" id="image"/>
+<input type="text" id="image2"/><input type="text" id="image3"/>
+</div>
+<div id="div_pieceonload">Enter audio on load URL: <input type="text" id="piece_on_load"/>
+<input type="text" id="piece_on_load2"/><input type="text" id="piece_on_load3"/>
+</div>
+<div id="div_style">Enter style URL:<input type="text" id="style"/>
+<input type="text" id="style2"/><input type="text" id="style3"/>
+</div>
+<div id="div_medium">Enter medium URL:<input type="text" id="medium"/>
+<input type="text" id="medium2"/><input type="text" id="medium3"/>
+</div>
+<div id="div_summary">Enter summary URL:<input type="text" id="summary"/>
+<input type="text" id="summary2"/><input type="text" id="summary3"/>
+</div>
 
 
-    <audio controls style="visibility:hidden">
-  <source src="" id="style">
-  Your browser does not support this audio format.
-</audio>
+<input type="button" value="Submit" onclick="submit()"/>
+</div>
 
+</body>
 
-    <audio controls style="visibility:hidden">
-  <source src="" id="medium">
-  Your browser does not support this audio format.
-</audio>
-
-    <audio controls style="visibility:hidden">
-  <source src="" id="summary">
-  Your browser does not support this audio format.
-</audio>
-
-
-
-
-
-
+<script>
 
 	
-	<!-- Triggered when welcome	screen is automatically loaded ... Hides when other pages load -->
-	<div id="welcome-view" class="view">
+function setValue(doc, new_value){
+	value_array = new_value.split(',');
+	for (int i=0; i<value_array.length; i++)
+	{
+		doc.childNodes[i+1].value = value_array[i];
+	}
+}
+					
+function piece(piece_basics, artist_details, piece_details)
+{
+	this.piece_basics = piece_basics;
+	this.artist_details = artist_details;
+	this.piece_details = piece_details;
+	this.categories = ["about the artist", "about the piece"];	
+}
+
+
+function RoseAdmin() {
+    this.items= [];
+
+};
+
+
+var serverURL = "";//"leiner.cs-i.brandeis.edu:9000";
+
+
+// we use the locally cached model to lookup elements...
+RoseAdmin.prototype.getElement = function(id){
+    var item;
+    var i;
+    for(i=0; i<this.items.length; i++){
+        item = this.items[i];
+        if(item.id == id){
+            return(item);
+        }
+    }
+};
+
+current = -1; //below 0 means update, -1 means new, -2 means do nothing
+
+RoseAdmin.prototype.loadModel = function(selected) {
+	//first strip off title so we just have the ID
+	
+	selected = selected.split("(")[0];
+	
+	
+    // send request to the server for the items in the list
+    
+    $.ajax({
+        type: "GET",
+        url: serverURL+"/pieces",
+    }).done(function(new_items) {
 		
-  <!-- SlidesJS Required: Start Slides -->
-  <!-- The container is used to define the width of the slideshow -->
-  <div class="container">
-    <div id="slides">
-      <img src="img/example-slide-1.jpg" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
-      <img src="img/example-slide-2.jpg" alt="Photo by: Daniel Parks Link: http://www.flickr.com/photos/parksdh/5227623068/">
-      <img src="img/example-slide-3.jpg" alt="Photo by: Mike Ranweiler Link: http://www.flickr.com/photos/27874907@N04/4833059991/">
-      <img src="img/example-slide-4.jpg" alt="Photo by: Stuart SeegerLink: http://www.flickr.com/photos/stuseeger/97577796/">
-      <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
-      <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
-    </div>
-  </div>
-  <!-- End SlidesJS Required: Start Slides -->
 
-  <!-- SlidesJS Required: Link to jQuery -->
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <!-- End SlidesJS Required -->
+        this.items = new_items;
+        this.items.map(function(x){x.id=x["_id"];});
+		current = -1;
+		var count = -1;
+		this.items.forEach(function(item) {
+				count+=1;
+				if (selected == "--Art Works at the Rose--")
+				{
+					current = -2; //don't do anything
+				}
+				else if (selected == item._id) 
+				{
+					current = count;
+					document.getElementById("div_id").innerHTML = "ID#"+item._id;
+					document.getElementById("div_title").childNodes[1].value = item.piece_basics.title;
+					document.getElementById("div_artist").childNodes[1].value = item.piece_basics.artist;
+					document.getElementById("div_dimensions").childNodes[1].value = item.piece_basics.dimensions;
+					document.getElementById("div_year").childNodes[1].value = item.piece_basics.year;
+					document.getElementById("div_image").childNodes[1].value = item.piece_basics.image;
 
-  <!-- SlidesJS Required: Link to jquery.slides.js -->
-  <script src="js/jquery.slides.min.js"></script>
-  <!-- End SlidesJS Required -->
 
-  <!-- SlidesJS Required: Initialize SlidesJS with a jQuery doc ready -->
-  <script>
-    $(function() {
-      $('#slides').slidesjs({
-        width: 940,
-        height: 528,
-        navigation: false
-      });
-    });
-  </script>
-  <!-- End SlidesJS Required -->
-      	<!--Chatbox and mic images-->
-		<div align="center">
-			<img src="img/chatbox2.png" class="img-reponsive" style="width:80%;height:auto;opacity:.7">
-			<br/>
-			
-			<br/><img id="micbtn" src="img/mic-btn.png" draggable="false"></img>
-		</div>
 
-	</div>
-	<!-- /Welcome screen -->
-	
-	
-	<!-- Triggered when gallery	screen is automatically loaded ... Hides when other pages load -->
-	<div id="gallery-view" class="view">
-		<table align="center">
-			<tr>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
+					setValue(document.getElementById("div_artistonload"), item.artist_details.audio_on_load);
+					setValue(document.getElementById("div_career"), item.artist_details.career);
+					setValue(document.getElementById("div_biography"), item.artist_details.biography);
+
+
+
+					setValue(document.getElementById("div_pieceonload"), item.piece_details.audio_on_load);
+					setValue(document.getElementById("div_style"), item.piece_details.style);
+					setValue(document.getElementById("div_medium"), item.piece_details.medium);
+					setValue(document.getElementById("div_summary"), item.piece_details.summary);		
+				}
 				
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-				<td>
-					<a onclick="roseApp.showView('one')">
-					<div class="square"></div>
-					</a>
-				</td>
-			</tr>
-		</table>
-	</div>
+			});
+			if (current < 0)  //did not find a match because we're adding new piece or we're at first entry
+			{
+				RoseAdminApp.emptyForm();
+				
+				return;	
+			}
+    });
+};
 
-	<!-- Triggered when tester screen is automatically loaded ... Hides when other pages load -->
-	<div id="one-view" class="view">
-		<div></div>
-	</div>
-	<!-- /content -->
+RoseAdmin.prototype.emptyForm = function()
+{
+		document.getElementById("div_id").innerHTML = "ID #: [new piece]";
+		
+		for (int i=1; i<4; i++)
+		{
+		
+			document.getElementById("div_title").childNodes[i].value = "";
+			document.getElementById("div_artist").childNodes[i].value = "";
+			document.getElementById("div_dimensions").childNodes[i].value = "";
+			document.getElementById("div_year").childNodes[i].value = "";
 
-	<!-- Triggered when about screen is automatically loaded ... Hides when other pages load -->
-	<div id="about-view" class="view">
-		<h1 align="center">ABOUT THE ROSE</h1>
-		Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art.
-		<br>
-		The programs of the Rose adhere to the overall mission of the university, embracing its values of academic excellence, social justice and freedom of expression.
-		<br>
-		MISSION
-		<br>
-		Founded in 1961, The Rose Art Museum of Brandeis University is an educational and cultural institution dedicated to collecting, preserving and exhibiting the finest of modern and contemporary art. The programs of the Rose adhere to the overall mission of the University, embracing its values of academic excellence, social justice, and freedom of expression. 
-		<br>
-		An active participant in the academic, cultural and social life of Brandeis, the Rose seeks to stimulate public awareness and disseminate knowledge of modern and contemporary art to enrich educational, cultural and artistic communities regionally, nationally and internationally. 
-		<br>
-		The Rose affirms the principle that knowledge of the past informs an understanding of the present and provides the critical foundation for shaping the future. It promotes learning and understanding of the evolving meanings, ideas and forms of visual art relevant to contemporary society.
-	</div>
-	<!-- /content -->
+			document.getElementById("div_artistonload").childNodes[i].value = "";
+			document.getElementById("div_career").childNodes[i].value = "";
+			document.getElementById("div_biography").childNodes[i].value = "";
 
 
-
-
-
-    <div class="overlay"></div>
-
-    <nav class="left">
-      <ul>
-        <li>
-          <a onclick="roseApp.showView('welcome')">Home</a>
-        </li>
-        <li>
-          <a onclick="roseApp.showView('about')">About</a>
-        </li>
-        <li>
-          <a onclick="roseApp.showView('gallery')">Gallery</a>
-        </li>
-        <li>
-          <a href="http://www.brandeis.edu/rose/support/index.html">Support the Rose</a>
-        </li>
-        <li>
-          <a href="tel:1234567890">Front Desk</a>
-        </li>
-      </ul>
-	</nav>
-
-		<!-- footer -->
-		<footer id="footer">
-			<h4>&copy; 2014 Rose Art Museum  </h4>
-		</footer>
-		<!-- /footer -->
-
-	</div><!-- /page -->
-
-    <script src="js/main.js"></script>
-    <script>  
-	    function getURL(){
-			document.getElementById("page-title").innerHTML = document.URL.charAt(22).toUpperCase() + document.URL.slice(23);
+			document.getElementById("div_pieceonload").childNodes[i].value = "";
+			document.getElementById("div_style").childNodes[i].value = "";
+			document.getElementById("div_medium").childNodes[i].value = "";
+			document.getElementById("div_summary").childNodes[i].value = "";
+			document.getElementById("div_image").childNodes[i].value = "";
 		}
-		getURL();
-	</script>
+}
 
 
-  </body>
-	<script>
-	// this is the code that actually starts the JavaScript application!!
-	// when the document has been fully loaded, all the roseApp.start() method
-	$(document).ready(roseApp.start());
-	</script>
+
+RoseAdmin.prototype.addElement = function(newItem){
+    console.log("sending "+JSON.stringify(newItem));
+    var myList = this;
+    $.ajax({
+        type: "POST",
+        url: serverURL+"/pieces",
+        data: JSON.stringify(newItem),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(function(items) {
+		//get_selection();
+    });
+}
+
+RoseAdmin.prototype.updateElement = function(id, newItem){
+   $.ajax({
+        type: "GET",
+        url: serverURL+"/pieces",
+    }).done(function(new_items) {
+		var count = -1;
+		new_items.forEach(function(item) {
+			count+=1;
+			if (item._id==id) {
+				$.ajax({
+					type: "PUT",
+					url: serverURL+"/pieces/"+item._id,
+					data: JSON.stringify(newItem),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json"
+				}).done(function(items) {
+					load_dropdown();
+				});
+			}
+		});	
+	
+	});
+}
+
+
+RoseAdmin.prototype.deleteElement = function(id){
+	title = id.split("(")[1];
+	title = title.substr(0,title.length-1);
+	
+	id = id.split("(")[0];
+
+    $.ajax({
+        type: "DELETE",
+        url: serverURL+"/pieces/"+id,
+    }).done(function(items) {
+		alert("You have successfully deleted " +title+".");
+		load_dropdown();
+		//get_selection();
+    });
+
+}
+    
+
+var RoseAdminApp = new RoseAdmin;
+
+function get_selection()
+{
+	
+	var obj = document.getElementById("whichPiece");
+    var selected = obj.options[obj.selectedIndex].text;
+    if (selected == "--Art Works at the Rose--")
+		document.getElementById("editform").style.visibility = "hidden";
+	else
+	{
+		document.getElementById("editform").style.visibility = "visible";
+		RoseAdminApp.loadModel(selected);
+	}
+}
+
+
+function deleteSelected() {
+	
+	var obj = document.getElementById("whichPiece");
+    var selected = obj.options[obj.selectedIndex].text;
+    if (selected == "--Art Works at the Rose--" || selected == "Add New Piece")
+		alert("Cannot delete default values.");
+	else
+	{
+		RoseAdminApp.deleteElement(selected);
+	}	
+
+}
+
+function submit() {
+    var title = document.getElementById("div_title").childNodes[1].value;
+	var year = document.getElementById("div_year").childNodes[1].value;
+	var artist = document.getElementById("div_artist").childNodes[1].value;
+	var dimensions = document.getElementById("div_dimensions").childNodes[1].value;
+	var image = document.getElementById("div_image").childNodes[1].value;
+	
+	var audio_artistonload = document.getElementById("div_artistonload").childNodes[1].value;	
+	var career = document.getElementById("div_career").childNodes[1].value;	
+	var biography = document.getElementById("div_biography").childNodes[1].value;	
+
+	
+	
+	var audio_pieceonload = document.getElementById("div_pieceonload").childNodes[1].value;	
+	var summary = document.getElementById("div_summary").childNodes[1].value;	
+	var medium = document.getElementById("div_medium").childNodes[1].value;	
+	var style = document.getElementById("div_style").childNodes[1]ivalue;
+		
+    for (int i=2; i<4; i++)
+    {
+		if (document.getElementById("div_artistonload").childNodes[i].value != "")
+				audio_artistonload += "," + document.getElementById("div_artistonload").childNodes[i].value;
+				
+		if (document.getElementById("div_career").childNodes[1].value != "")
+				career += "," + document.getElementById("div_career").childNodes[i].value;	
+	
+		if (document.getElementById("div_biography").childNodes[i].value != "")
+				biography += "," + document.getElementById("div_biography").childNodes[i].value;	
+
+	    if (document.getElementById("div_pieceonload").childNodes[i].value != "")
+				audio_pieceonload += "," + document.getElementById("div_pieceonload").childNodes[i].value;	
+				
+		if (document.getElementById("div_summary").childNodes[i].value != "")
+				summary += "," + document.getElementById("div_summary").childNodes[i].value;
+				
+		if (document.getElementById("div_medium").childNodes[i].value != "")	
+				medium += "," + document.getElementById("div_medium").childNodes[1].value;	
+		
+		if (document.getElementById("div_style").childNodes[i].value != "")
+				style += ","+document.getElementById("div_style").childNodes[i].value;
+
+    }
+	
+	var obj = document.getElementById("whichPiece");
+	
+	var piece_basics = {title: title, year: year, artist:artist, dimensions:dimensions, image: image};
+	var artist_details = {audio_on_load:audio_artistonload, biography:biography, career: career};
+	var piece_details = {audio_on_load:audio_pieceonload, summary: summary, medium: medium, style: style};
+		
+    var selected = obj.options[obj.selectedIndex].text;
+	if (selected == "--Art Works at the Rose Art Museum--")
+	{
+		return;
+	}
+	else if (selected == "Add New Piece") //add new piece
+	{
+		var new_piece = new piece(piece_basics, artist_details, piece_details);
+		RoseAdminApp.addElement(new_piece);
+		load_dropdown();
+		alert("You have successfully added "+title+".");
+	}
+	else  //update existing piece
+	{
+		
+		var new_piece = new piece(piece_basics, artist_details, piece_details);
+		id = selected.split("(")[0];
+		RoseAdminApp.updateElement(id, new_piece);
+		alert("You have successfully updated "+id+".");
+	}
+	RoseAdminApp.emptyForm();
+	document.getElementById("whichPiece").value = "default";
+	document.getElementById("editform").style.visibility="hidden";
+  }
+}
+
+function load_dropdown()
+{
+	added_txt = "";
+	
+	 $.ajax({
+        type: "GET",
+        url: serverURL+"/model/rose",
+    }).done(function(new_items) {
+		
+		var count=-1;
+		new_items.forEach(function(item){
+			count+=1;
+			added_txt += "<option value='"+count+"'>"+item._id+"("+item.piece_basics.title+")</option>";
+		});
+		orig_txt = "<select name='pieces' id='whichPiece' onchange='get_selection();'> \
+<option value='default' selected>--Art Works at the Rose--</option> \
+<option value='new_piece'>Add New Piece</option>";
+		document.getElementById("formarea").innerHTML = orig_txt+added_txt+"</select>";
+		document.getElementById("editform").style.visibility = "hidden";
+	});
+}
+
+</script>
+<form method="post" enctype="multipart/form-data" action="/file-upload">
+    <input type="file" name="thumbnail">
+    <input type="submit">
+</form>
 
 </html>
