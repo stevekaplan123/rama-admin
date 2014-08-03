@@ -40,7 +40,8 @@ var pieceModel = mongoose.model('pieces', {
         biography: String,
         career: String
         },
-    categories: [String, String]
+    categories: [String, String],
+    picture: String
     
 });
 
