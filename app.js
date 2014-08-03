@@ -73,23 +73,15 @@ app.get('/pieces/:id', function(req,res) {
 });
 
 app.put('/pieces/:id', function(req, res) {
-   var collection = db.get(req.params.collection);
-   collection.update({"_id":req.params.id}, req.body);
-   res.json(200,{});
+   pieces.update({"_id":req.params.id}, req.body);
 });
 
 app.post('/pieces', function(req, res) {
-   var collection = db.get(req.params.collection);
-   var promise = collection.insert(req.body);
-   promise.success(function(doc){res.json(200,doc)});
-   promise.error(function(error){res.json(404,error)});
+   pieces.insert(req.body);
 });
 
 app.delete('/pieces/:id', function(req, res) {
-   var id = req.params.id;
-   var collection = db.get(req.params.collection);
-   collection.remove({_id: id});
-   res.json(200, {});
+   pieces.remove({_id: id});
 });
 
 /*app.get('/audios/:userId', function(req, res){
