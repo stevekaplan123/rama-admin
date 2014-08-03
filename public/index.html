@@ -63,7 +63,7 @@
 	
 function setValue(doc, new_value){
 	value_array = new_value.split(',');
-	for (int i=0; i<value_array.length; i++)
+	for (var i=0; i<value_array.length; i++)
 	{
 		doc.childNodes[i+1].value = value_array[i];
 	}
@@ -91,7 +91,7 @@ var serverURL = "";//"leiner.cs-i.brandeis.edu:9000";
 RoseAdmin.prototype.getElement = function(id){
     var item;
     var i;
-    for(i=0; i<this.items.length; i++){
+    for(var i=0; i<this.items.length; i++){
         item = this.items[i];
         if(item.id == id){
             return(item);
@@ -163,7 +163,7 @@ RoseAdmin.prototype.emptyForm = function()
 {
 		document.getElementById("div_id").innerHTML = "ID #: [new piece]";
 		
-		for (int i=1; i<4; i++)
+		for (var i=1; i<4; i++)
 		{
 		
 			document.getElementById("div_title").childNodes[i].value = "";
@@ -291,7 +291,7 @@ function submit() {
 	var medium = document.getElementById("div_medium").childNodes[1].value;	
 	var style = document.getElementById("div_style").childNodes[1]ivalue;
 		
-    for (int i=2; i<4; i++)
+    for (var i=2; i<4; i++)
     {
 		if (document.getElementById("div_artistonload").childNodes[i].value != "")
 				audio_artistonload += "," + document.getElementById("div_artistonload").childNodes[i].value;
