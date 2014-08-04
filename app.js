@@ -96,8 +96,7 @@ app.post('/pieces', function(req, res) {
             "medium":"i",
             "style":"h"},
         "categories":["about the artist","about the piece"]});
-   app.save(temp);
-   //pieces.insert(req.body);
+    console.log(temp)
 });
 
 app.delete('/pieces/:id', function(req, res) {
