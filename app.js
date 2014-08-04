@@ -22,8 +22,8 @@ app.use(function(req, res, next) {
 
 var mongodbUri= "mongodb://leiner.cs-i.brandeis.edu:27017/rose"; 
 var mongooseUri= uriUtil.formatMongoose(mongodbUri);
-
-var pieceModel = mongoose.model('pieces', {
+var Schema = mongoose.Schema;
+var pieceSchema = new Schema ({
     piece_basics: {
         title: String,
         year: Number,
@@ -41,8 +41,8 @@ var pieceModel = mongoose.model('pieces', {
         career: String
         },
     categories: [String, String]
-    
 });
+var pieceModel = mongoose.model('pieces', pieceSchema)
 
 mongoose.connect(mongooseUri);
 
@@ -96,7 +96,7 @@ app.post('/pieces', function(req, res) {
             "medium":"i",
             "style":"h"},
         "categories":["about the artist","about the piece"]});
-   pieces.insert(temp);
+   db.pieces.insert(temp);
    //pieces.insert(req.body);
 });
 
