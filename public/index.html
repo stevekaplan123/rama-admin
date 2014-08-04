@@ -21,7 +21,6 @@
 <div id="div_title">Enter title:<input type="text" id="title"/></div>
 <div id="div_artist">Enter artist name:<input type="text" id="artist"/></div>
 <div id="div_year">Enter year:<input type="text" id="year"/></div>
-<div id="div_dimensions">Enter dimensions:<input type="text" id="dimensions"/></div>
 
 <div>Artist URL info:</div>
 <div id="div_artistonload">Enter audio on load URL: <input type="text" id="artist_on_load"/>
@@ -36,8 +35,8 @@
 
 <div>Piece URL info:</div>
 
-<div id="div_image">Enter image URL:<input type="text" id="image"/>
-<input type="text" id="image2"/><input type="text" id="image3"/>
+<div id="div_picture">Enter image URL:<input type="text" id="picture"/>
+<input type="text" id="picture2"/><input type="text" id="picture3"/>
 </div>
 <div id="div_pieceonload">Enter audio on load URL: <input type="text" id="piece_on_load"/>
 <input type="text" id="piece_on_load2"/><input type="text" id="piece_on_load3"/>
@@ -47,9 +46,6 @@
 </div>
 <div id="div_medium">Enter medium URL:<input type="text" id="medium"/>
 <input type="text" id="medium2"/><input type="text" id="medium3"/>
-</div>
-<div id="div_summary">Enter summary URL:<input type="text" id="summary"/>
-<input type="text" id="summary2"/><input type="text" id="summary3"/>
 </div>
 
 
@@ -69,12 +65,13 @@ function setValue(doc, new_value){
 	}
 }
 					
-function piece(piece_basics, artist_details, piece_details)
+function piece(piece_basics, artist_details, piece_details, picture)
 {
 	this.piece_basics = piece_basics;
 	this.artist_details = artist_details;
 	this.piece_details = piece_details;
 	this.categories = ["about the artist", "about the piece"];	
+	this.picture = picture;
 }
 
 
@@ -131,9 +128,8 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					document.getElementById("div_id").innerHTML = "ID#"+item._id;
 					document.getElementById("div_title").childNodes[1].value = item.piece_basics.title;
 					document.getElementById("div_artist").childNodes[1].value = item.piece_basics.artist;
-					document.getElementById("div_dimensions").childNodes[1].value = item.piece_basics.dimensions;
 					document.getElementById("div_year").childNodes[1].value = item.piece_basics.year;
-					document.getElementById("div_image").childNodes[1].value = item.picture;
+					document.getElementById("div_picture").childNodes[1].value = item.picture;
 
 
 
@@ -146,7 +142,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					setValue(document.getElementById("div_pieceonload"), item.piece_details.audio_on_load);
 					setValue(document.getElementById("div_style"), item.piece_details.style);
 					setValue(document.getElementById("div_medium"), item.piece_details.medium);
-				//	setValue(document.getElementById("div_summary"), item.piece_details.summary);		
+						
 				}
 				
 			});
@@ -165,7 +161,6 @@ RoseAdmin.prototype.emptyForm = function()
 
 		document.getElementById("div_title").childNodes[1].value = "";
 		document.getElementById("div_artist").childNodes[1].value = "";
-		document.getElementById("div_dimensions").childNodes[1].value = "";
 		document.getElementById("div_year").childNodes[1].value = "";
 		
 		
@@ -180,8 +175,7 @@ RoseAdmin.prototype.emptyForm = function()
 			document.getElementById("div_pieceonload").childNodes[i].value = "";
 			document.getElementById("div_style").childNodes[i].value = "";
 			document.getElementById("div_medium").childNodes[i].value = "";
-			document.getElementById("div_summary").childNodes[i].value = "";
-			document.getElementById("div_image").childNodes[i].value = "";
+			document.getElementById("div_picture").childNodes[i].value = "";
 		}
 }
 
@@ -199,7 +193,6 @@ RoseAdmin.prototype.addElement = function(newItem){
         dataType: "json"
     }).done(function(items) {
 		//get_selection();
-		//console.log("HELLA DONE");
     });
 }
 
@@ -280,8 +273,7 @@ function submit() {
     var title = document.getElementById("div_title").childNodes[1].value;
 	var year = document.getElementById("div_year").childNodes[1].value;
 	var artist = document.getElementById("div_artist").childNodes[1].value;
-	var dimensions = document.getElementById("div_dimensions").childNodes[1].value;
-	var image = document.getElementById("div_image").childNodes[1].value;
+	var picture = document.getElementById("div_picture").childNodes[1].value;
 	
 	var audio_artistonload = document.getElementById("div_artistonload").childNodes[1].value;	
 	var career = document.getElementById("div_career").childNodes[1].value;	
@@ -290,7 +282,6 @@ function submit() {
 	
 	
 	var audio_pieceonload = document.getElementById("div_pieceonload").childNodes[1].value;	
-	var summary = document.getElementById("div_summary").childNodes[1].value;	
 	var medium = document.getElementById("div_medium").childNodes[1].value;	
 	var style = document.getElementById("div_style").childNodes[1].value;
 		
@@ -308,9 +299,6 @@ function submit() {
 	    if (document.getElementById("div_pieceonload").childNodes[i].value != "")
 				audio_pieceonload += "," + document.getElementById("div_pieceonload").childNodes[i].value;	
 				
-		if (document.getElementById("div_summary").childNodes[i].value != "")
-				summary += "," + document.getElementById("div_summary").childNodes[i].value;
-				
 		if (document.getElementById("div_medium").childNodes[i].value != "")	
 				medium += "," + document.getElementById("div_medium").childNodes[i].value;	
 		
@@ -321,9 +309,9 @@ function submit() {
 	
 	var obj = document.getElementById("whichPiece");
 	
-	var piece_basics = {title: title, year: year, artist:artist, dimensions:dimensions, image: image};
+	var piece_basics = {title: title, year: year, artist:artist};
 	var artist_details = {audio_on_load:audio_artistonload, biography:biography, career: career};
-	var piece_details = {audio_on_load:audio_pieceonload, summary: summary, medium: medium, style: style};
+	var piece_details = {audio_on_load:audio_pieceonload, medium: medium, style: style};
 		
     var selected = obj.options[obj.selectedIndex].text;
 	if (selected == "--Art Works at the Rose Art Museum--")
@@ -332,7 +320,7 @@ function submit() {
 	}
 	else if (selected == "Add New Piece") //add new piece
 	{
-		var new_piece = new piece(piece_basics, artist_details, piece_details);
+		var new_piece = new piece(piece_basics, artist_details, piece_details, picture);
 		RoseAdminApp.addElement(new_piece);
 		load_dropdown();
 		alert("You have successfully added "+title+".");
@@ -340,7 +328,7 @@ function submit() {
 	else  //update existing piece
 	{
 		
-		var new_piece = new piece(piece_basics, artist_details, piece_details);
+		var new_piece = new piece(piece_basics, artist_details, piece_details, picture);
 		id = selected.split("(")[0];
 		RoseAdminApp.updateElement(id, new_piece);
 		alert("You have successfully updated "+id+".");

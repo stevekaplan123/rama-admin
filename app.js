@@ -78,9 +78,7 @@ app.put('/pieces/:id', function(req, res) {
 
 app.post('/pieces', function(req, res) {
     console.log(req);
-    console.log("ALL IS WELL");
-
-    var temp = new Piece(req);
+    var temp = new Piece({req}
     temp.save(function(err, saved){
         if(err){
             console.log(err);
