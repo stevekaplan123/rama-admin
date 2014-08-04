@@ -77,7 +77,46 @@ app.put('/pieces/:id', function(req, res) {
 });
 
 app.post('/pieces', function(req, res) {
-   Piece.insert(req.body);
+    console.log(stringify(req));
+    console.log("ALL IS WELL");
+    var pieceModel = mongoose.model('pieces', {
+    piece_basics: {
+        title: String,
+        year: Number,
+        artist: String
+        },
+    piece_details: {
+        audio_on_load: String,
+        medium: String,
+        style: String,
+        summary: String
+        },
+    artist_details: {
+        audio_on_load: String,
+        biography: String,
+        career: String
+        },
+    categories: [String, String]
+    
+});
+    var Piece = mongoose.model('pieceModel');
+    var temp = new Piece({
+        "piece_basics":
+        {   "title":"LOVELY",
+            "year": 9,
+            "artist":"Beyonce",
+        },
+        "artist_details":
+        {   "audio_on_load":"a,b",
+            "biography":"e","career":"d"},
+        "piece_details":
+        {"audio_on_load":"g",
+            "summary":"j",
+            "medium":"i",
+            "style":"h"},
+        "categories":["about the artist","about the piece"]});
+   //pieces.insert(temp);
+   piece.insert(req.body);
 });
 
 app.delete('/pieces/:id', function(req, res) {

@@ -189,6 +189,7 @@ RoseAdmin.prototype.emptyForm = function()
 
 RoseAdmin.prototype.addElement = function(newItem){
     console.log("sending "+JSON.stringify(newItem));
+    console.log("to " + serverURL);
     var myList = this;
     $.ajax({
         type: "POST",
@@ -198,6 +199,7 @@ RoseAdmin.prototype.addElement = function(newItem){
         dataType: "json"
     }).done(function(items) {
 		//get_selection();
+		//console.log("HELLA DONE");
     });
 }
 
