@@ -95,7 +95,7 @@ app.post('/pieces', function(req, res) {
             "medium":"i",
             "style":"h"},
         "categories":["about the artist","about the piece"]});
-    temp.save(function(err, ){
+    temp.save(function(err, saved){
         if(err){
             return console.error.(err);
         }
