@@ -79,26 +79,7 @@ app.put('/pieces/:id', function(req, res) {
 app.post('/pieces', function(req, res) {
     console.log(stringify(req));
     console.log("ALL IS WELL");
-    var pieceModel = mongoose.model('pieces', {
-    piece_basics: {
-        title: String,
-        year: Number,
-        artist: String
-        },
-    piece_details: {
-        audio_on_load: String,
-        medium: String,
-        style: String,
-        summary: String
-        },
-    artist_details: {
-        audio_on_load: String,
-        biography: String,
-        career: String
-        },
-    categories: [String, String]
-    
-});
+
     var Piece = mongoose.model('pieceModel');
     var temp = new Piece({
         "piece_basics":
@@ -115,8 +96,8 @@ app.post('/pieces', function(req, res) {
             "medium":"i",
             "style":"h"},
         "categories":["about the artist","about the piece"]});
-   //pieces.insert(temp);
-   piece.insert(req.body);
+   pieces.insert(temp);
+   //pieces.insert(req.body);
 });
 
 app.delete('/pieces/:id', function(req, res) {
