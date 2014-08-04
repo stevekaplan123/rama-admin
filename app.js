@@ -82,12 +82,14 @@ app.post('/pieces', function(req, res) {
         if(err){
             console.log(err);
         }
-        console.dir("temp: " + temp)
+        console.dir(temp)
     })
 });
 
 app.delete('/pieces/:id', function(req, res) {
-   pieces.remove({_id: id});
+   mongoose.model('pieces').findByIdAndRemove(req.params.id, function(err, pieces){   
+    res.send(pieces);
+    });
 });
 
 /*app.get('/audios/:userId', function(req, res){
