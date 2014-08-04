@@ -60,7 +60,7 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 
 
 app.get('/pieces', function(req, res){
-    pieceModel.find(function(err, pieces){
+    Piece.find(function(err, pieces){
         res.send(pieces);
     });
 });
