@@ -133,7 +133,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					document.getElementById("div_artist").childNodes[1].value = item.piece_basics.artist;
 					document.getElementById("div_dimensions").childNodes[1].value = item.piece_basics.dimensions;
 					document.getElementById("div_year").childNodes[1].value = item.piece_basics.year;
-					document.getElementById("div_image").childNodes[1].value = item.piece_basics.image;
+					document.getElementById("div_image").childNodes[1].value = item.picture;
 
 
 
@@ -146,7 +146,7 @@ RoseAdmin.prototype.loadModel = function(selected) {
 					setValue(document.getElementById("div_pieceonload"), item.piece_details.audio_on_load);
 					setValue(document.getElementById("div_style"), item.piece_details.style);
 					setValue(document.getElementById("div_medium"), item.piece_details.medium);
-					setValue(document.getElementById("div_summary"), item.piece_details.summary);		
+				//	setValue(document.getElementById("div_summary"), item.piece_details.summary);		
 				}
 				
 			});
@@ -162,15 +162,16 @@ RoseAdmin.prototype.loadModel = function(selected) {
 RoseAdmin.prototype.emptyForm = function()
 {
 		document.getElementById("div_id").innerHTML = "ID #: [new piece]";
+
+		document.getElementById("div_title").childNodes[1].value = "";
+		document.getElementById("div_artist").childNodes[1].value = "";
+		document.getElementById("div_dimensions").childNodes[1].value = "";
+		document.getElementById("div_year").childNodes[1].value = "";
+		
 		
 		for (var i=1; i<4; i++)
 		{
 		
-			document.getElementById("div_title").childNodes[i].value = "";
-			document.getElementById("div_artist").childNodes[i].value = "";
-			document.getElementById("div_dimensions").childNodes[i].value = "";
-			document.getElementById("div_year").childNodes[i].value = "";
-
 			document.getElementById("div_artistonload").childNodes[i].value = "";
 			document.getElementById("div_career").childNodes[i].value = "";
 			document.getElementById("div_biography").childNodes[i].value = "";
@@ -296,7 +297,7 @@ function submit() {
 		if (document.getElementById("div_artistonload").childNodes[i].value != "")
 				audio_artistonload += "," + document.getElementById("div_artistonload").childNodes[i].value;
 				
-		if (document.getElementById("div_career").childNodes[1].value != "")
+		if (document.getElementById("div_career").childNodes[i].value != "")
 				career += "," + document.getElementById("div_career").childNodes[i].value;	
 	
 		if (document.getElementById("div_biography").childNodes[i].value != "")
@@ -309,7 +310,7 @@ function submit() {
 				summary += "," + document.getElementById("div_summary").childNodes[i].value;
 				
 		if (document.getElementById("div_medium").childNodes[i].value != "")	
-				medium += "," + document.getElementById("div_medium").childNodes[1].value;	
+				medium += "," + document.getElementById("div_medium").childNodes[i].value;	
 		
 		if (document.getElementById("div_style").childNodes[i].value != "")
 				style += ","+document.getElementById("div_style").childNodes[i].value;
@@ -345,7 +346,6 @@ function submit() {
 	RoseAdminApp.emptyForm();
 	document.getElementById("whichPiece").value = "default";
 	document.getElementById("editform").style.visibility="hidden";
-  }
 }
 
 function load_dropdown()
