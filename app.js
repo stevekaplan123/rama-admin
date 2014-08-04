@@ -77,12 +77,12 @@ app.put('/pieces/:id', function(req, res) {
 });
 
 app.post('/pieces', function(req, res) {
-    console.log(JSON.stringify(req));
+    console.log(req);
     console.log("ALL IS WELL");
 
     var Piece = mongoose.model('pieceModel');
     var temp = new Piece({
-        "piece_basics":
+        piece_basics:
         {   "title":"LOVELY",
             "year": 9,
             "artist":"Beyonce",
