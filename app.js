@@ -80,7 +80,7 @@ app.post('/pieces', function(req, res) {
     console.log(req);
     console.log("ALL IS WELL");
 
-    var Piece = mongoose.model('pieces', 'pieceModel');
+    var Piece = mongoose.model('pieces', pieceModel);
     var temp = new Piece({
         piece_basics:
         {   "title":"LOVELY",
