@@ -73,7 +73,9 @@ app.get('/pieces/:id', function(req,res) {
 });
 
 app.put('/pieces/:id', function(req, res) {
-   piece.update({"_id":req.params.id}, req.body);
+   mongoose.model('pieces').findByIdAndUpdate(req.params.id, req.body, function(err, pieces){
+    res.send(pieces);
+    });
 });
 
 app.post('/pieces', function(req, res) {
