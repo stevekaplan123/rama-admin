@@ -78,7 +78,7 @@ app.put('/pieces/:id', function(req, res) {
 
 app.post('/pieces', function(req, res) {
     console.log(req);
-    var temp = new Piece({req}
+    var temp = new Piece(JSON.stringify(req))
     temp.save(function(err, saved){
         if(err){
             console.log(err);
