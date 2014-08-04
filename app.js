@@ -42,7 +42,7 @@ var pieceSchema = new Schema ({
         },
     categories: [String, String]
 });
-var pieceModel = mongoose.model('pieces', pieceSchema)
+var Piece = mongoose.model('pieces', pieceSchema)
 
 mongoose.connect(mongooseUri);
 
@@ -80,7 +80,6 @@ app.post('/pieces', function(req, res) {
     console.log(req);
     console.log("ALL IS WELL");
 
-    var Piece = mongoose.model('pieces', pieceModel);
     var temp = new Piece({
         piece_basics:
         {   "title":"LOVELY",
