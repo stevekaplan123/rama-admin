@@ -349,6 +349,7 @@ function load_dropdown()
 		
 		var count=-1;
 		new_items.forEach(function(item){
+			alert(item);
 			count+=1;
 			added_txt += "<option value='"+count+"'>"+item._id+"("+item.piece_basics.title+")</option>";
 		});
