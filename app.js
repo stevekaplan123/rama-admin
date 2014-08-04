@@ -80,21 +80,7 @@ app.post('/pieces', function(req, res) {
     console.log(req);
     console.log("ALL IS WELL");
 
-    var temp = new Piece({
-        piece_basics:
-        {   "title":"LOVELY",
-            "year": 9,
-            "artist":"Beyonce",
-        },
-        "artist_details":
-        {   "audio_on_load":"a,b",
-            "biography":"e","career":"d"},
-        "piece_details":
-        {"audio_on_load":"g",
-            "summary":"j",
-            "medium":"i",
-            "style":"h"},
-        "categories":["about the artist","about the piece"]});
+    var temp = new Piece(req);
     temp.save(function(err, saved){
         if(err){
             console.log(err);
