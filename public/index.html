@@ -289,7 +289,7 @@ function submit() {
 	var audio_pieceonload = document.getElementById("div_pieceonload").childNodes[1].value;	
 	var summary = document.getElementById("div_summary").childNodes[1].value;	
 	var medium = document.getElementById("div_medium").childNodes[1].value;	
-	var style = document.getElementById("div_style").childNodes[1]ivalue;
+	var style = document.getElementById("div_style").childNodes[1].value;
 		
     for (var i=2; i<4; i++)
     {
@@ -354,7 +354,7 @@ function load_dropdown()
 	
 	 $.ajax({
         type: "GET",
-        url: serverURL+"/model/rose",
+        url: serverURL+"/pieces",
     }).done(function(new_items) {
 		
 		var count=-1;
