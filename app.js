@@ -77,7 +77,7 @@ app.put('/pieces/:id', function(req, res) {
 });
 
 app.post('/pieces', function(req, res) {
-    console.log(stringify(req));
+    console.log(JSON.stringify(req));
     console.log("ALL IS WELL");
 
     var Piece = mongoose.model('pieceModel');
