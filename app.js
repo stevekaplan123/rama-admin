@@ -60,6 +60,7 @@ fs.readdirSync(__dirname + '/models').forEach(function(filename){
 
 
 app.get('/pieces', function(req, res){
+    alert("yes")
     Piece.find(function(err, pieces){
         res.send(pieces);
     });
@@ -93,35 +94,6 @@ app.delete('/pieces/:id', function(req, res) {
     res.send(pieces);
     });
 });
-
-/*app.get('/audios/:userId', function(req, res){
-    mongoose.model('audios').findById(req.params.userId, function(err, audios){
-        res.send(audios);
-    });
-});
-
-app.get('/audios/:userTitle', function(req,res){
-    mongoose.model('audios').find({'name': req.params.userTitle}, function(err, audios){
-        res.send(audios);
-    });
-
-}); */
-
-
-
-/*
-How to add to audio
-var Audio = mongoose.model('audios')
-
-var katherine = new Audio({
-    name: "katherine",
-    url: "https://s3.amazonaws.com/RamaAudio/katherine_001.wav"
-});
-app.save(function(err, ){
-    if(err) return console.error(err);
-    console.dir(katherine);
-}); */
-
 
 app.listen(process.env.PORT || 9000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
